@@ -104,8 +104,14 @@ class GeneratorViewModel : ViewModel() {
                     returnPlainText = !generatorState.returnPlainText
                 )
             }
+
+            GeneratorEvent.OnResetOption -> {
+                generatorState = GeneratorState()
+            }
         }
     }
+
+
 
     fun enabledGenerateBtn(): Boolean {
         if (generatorState.numOfParagraphs == "") {

@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +21,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
@@ -69,7 +71,7 @@ fun GeneratorScreen(mViewModel: GeneratorViewModel, context: Context) {
                 bmState = bmState,
                 scope = scope,
                 onCopyResult = {
-                    copyResult(context,it)
+                    copyResult(context, it)
                 }
             )
         },
@@ -218,7 +220,7 @@ fun GeneratorScreen(mViewModel: GeneratorViewModel, context: Context) {
                             onCheckedChange = {
                                 mViewModel.onEvent(GeneratorEvent.OnReturnPlainTextChange(it))
                             },
-                            label = "Return text as ${if(state.returnPlainText) "Text" else "Html"}"
+                            label = "Return text as ${if (state.returnPlainText) "Text" else "Html"}"
                         )
                     }
                     Column {
@@ -269,6 +271,17 @@ fun GeneratorScreen(mViewModel: GeneratorViewModel, context: Context) {
             ) {
                 Text("Generate")
             }
+            OutlinedButton(
+                onClick = {
+                    mViewModel.onEvent(GeneratorEvent.OnResetOption)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp, start = 8.dp, end = 8.dp),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
+            ) {
+                Text("Reset")
+            }
         }
     }
 
@@ -277,7 +290,7 @@ fun GeneratorScreen(mViewModel: GeneratorViewModel, context: Context) {
 
 fun copyResult(context: Context, result: String) {
     val clipBoard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    val clipData =ClipData.newPlainText("result",result)
+    val clipData = ClipData.newPlainText("result", result)
     clipBoard.setPrimaryClip(clipData)
-    Toast.makeText(context,"Result copied",Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, "Result copied", Toast.LENGTH_SHORT).show()
 }

@@ -18,4 +18,5 @@ sealed class GeneratorEvent {
     data class OnReturnPlainTextChange(val returnPlainText:Boolean):GeneratorEvent()
     object OnGenerateBtnClick: GeneratorEvent()
     object OnParagraphLengthShow: GeneratorEvent()
+    object  OnResetOption:GeneratorEvent()
 }

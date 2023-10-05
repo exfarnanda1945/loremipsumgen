@@ -7,12 +7,11 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -25,8 +24,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.exfarnanda1945.loremipsumgen.R
 import com.exfarnanda1945.loremipsumgen.data.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -35,6 +35,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun BottomSheetContent(
     result: Resource<String>,
+    onCopyResult: (result: String) -> Unit,
     context: Context,
     scrollState: ScrollState,
     bmState: BottomSheetScaffoldState,
@@ -66,7 +67,7 @@ fun BottomSheetContent(
                         .padding(8.dp)
                         .verticalScroll(scrollState)
                 ) {
-                    Text(result.data!!)
+                    HtmlParser(text = result.data!!)
                 }
 
             }
@@ -79,17 +80,22 @@ fun BottomSheetContent(
         ) {
             ElevatedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { /*TODO*/ },
+                onClick = {
+                    onCopyResult(result.data!!)
+                },
                 colors = ButtonDefaults.elevatedButtonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary
                 ),
-            ) {
-                Icon(
-                    painter = rememberVectorPainter(image = Icons.Filled.Share),
-                    contentDescription = "Share"
-                )
-                Text("Share Result")
+
+                ) {
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_content_copy),
+                        contentDescription = "Copy"
+                    )
+                    Text("Copy")
+                }
             }
             OutlinedButton(
                 onClick = {

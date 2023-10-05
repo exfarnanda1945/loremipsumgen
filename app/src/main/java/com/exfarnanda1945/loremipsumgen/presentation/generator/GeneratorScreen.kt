@@ -1,6 +1,9 @@
 package com.exfarnanda1945.loremipsumgen.presentation.generator
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -64,7 +67,10 @@ fun GeneratorScreen(mViewModel: GeneratorViewModel, context: Context) {
                 context = context,
                 scrollState = scrollState,
                 bmState = bmState,
-                scope = scope
+                scope = scope,
+                onCopyResult = {
+                    copyResult(context,it)
+                }
             )
         },
 
@@ -262,4 +268,11 @@ fun GeneratorScreen(mViewModel: GeneratorViewModel, context: Context) {
     }
 
 
+}
+
+fun copyResult(context: Context, result: String) {
+    val clipBoard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clipData =ClipData.newPlainText("result",result)
+    clipBoard.setPrimaryClip(clipData)
+    Toast.makeText(context,"Result copied",Toast.LENGTH_SHORT).show()
 }

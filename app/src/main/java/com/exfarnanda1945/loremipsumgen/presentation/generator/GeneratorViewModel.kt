@@ -98,6 +98,12 @@ class GeneratorViewModel : ViewModel() {
                     isParagraphLengthShow = !generatorState.isParagraphLengthShow
                 )
             }
+
+            is GeneratorEvent.OnReturnPlainTextChange -> {
+                generatorState =generatorState.copy(
+                    returnPlainText = !generatorState.returnPlainText
+                )
+            }
         }
     }
 

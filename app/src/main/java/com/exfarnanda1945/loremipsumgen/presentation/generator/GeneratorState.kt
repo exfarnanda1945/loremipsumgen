@@ -15,6 +15,6 @@ data class GeneratorState(
     val addHeaders:Boolean = false,
     val addAllCaps:Boolean = false,
     val prudeVer:Boolean = false,
-    val returnPlainText:Boolean = true,
+    val returnPlainText:Boolean = false,
     val isParagraphLengthShow: Boolean = false,
 )

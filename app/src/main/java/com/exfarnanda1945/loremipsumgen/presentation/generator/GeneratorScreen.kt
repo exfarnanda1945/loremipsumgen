@@ -73,7 +73,6 @@ fun GeneratorScreen(mViewModel: GeneratorViewModel, context: Context) {
                 }
             )
         },
-
         topBar = {
             TopAppBar(
                 title = {
@@ -158,7 +157,6 @@ fun GeneratorScreen(mViewModel: GeneratorViewModel, context: Context) {
                 }
             }
 
-
             GeneratorOptions(text = "Options") {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -214,6 +212,13 @@ fun GeneratorScreen(mViewModel: GeneratorViewModel, context: Context) {
                                 mViewModel.onEvent(GeneratorEvent.OnDescriptionListSwitchChange(it))
                             },
                             label = "Description List"
+                        )
+                        SwitchLabel(
+                            checked = state.returnPlainText,
+                            onCheckedChange = {
+                                mViewModel.onEvent(GeneratorEvent.OnReturnPlainTextChange(it))
+                            },
+                            label = "Return text as ${if(state.returnPlainText) "Text" else "Html"}"
                         )
                     }
                     Column {

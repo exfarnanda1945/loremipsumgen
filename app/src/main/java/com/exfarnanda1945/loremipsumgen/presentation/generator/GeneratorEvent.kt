@@ -15,6 +15,7 @@ sealed class GeneratorEvent {
     data class OnHeadingSwitchChange(val heading: Boolean) : GeneratorEvent()
     data class OnBoldSwitchChange(val boldItalic: Boolean) : GeneratorEvent()
     data class OnParagraphLengthChange(val paragraphLength: ParagraphLengthEnum) : GeneratorEvent()
+    data class OnReturnPlainTextChange(val returnPlainText:Boolean):GeneratorEvent()
     object OnGenerateBtnClick: GeneratorEvent()
     object OnParagraphLengthShow: GeneratorEvent()
 }

@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -79,4 +81,7 @@ dependencies {
 
     testImplementation("org.mockito:mockito-core:5.8.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-compiler:2.44")
 }

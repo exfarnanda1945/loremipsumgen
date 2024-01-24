@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.exfarnanda1945.loremipsumgen.feat_generator.utils.ParagraphLengthEnum
+import com.exfarnanda1945.loremipsumgen.feat_history.domain.models.GeneratorSetting
 
 @Entity(
     tableName = "generator_setting",
@@ -41,4 +42,40 @@ data class GeneratorSettingEntity(
     val isReturnPlainText: Boolean,
     @ColumnInfo("isParagraphLengthShow")
     val isParagraphLengthShow: Boolean
+)
+
+fun GeneratorSettingEntity.toModel() = GeneratorSetting(
+    id = this.id,
+    isAllCaps = this.isAllCaps,
+    isBq = this.isBq,
+    isCode = this.isCode,
+    isDecorate = this.isDecorate,
+    isDl = this.isDl,
+    isHeaders = this.isHeaders,
+    isLink = this.isLink,
+    isOl = this.isOl,
+    isParagraphLengthShow = this.isParagraphLengthShow,
+    isPrudeVer = this.isPrudeVer,
+    isReturnPlainText = this.isReturnPlainText,
+    isUl = this.isUl,
+    numOfParagraphs = this.numOfParagraphs,
+    paragraphLength = this.paragraphLength
+)
+
+fun GeneratorSetting.toEntity() = GeneratorSettingEntity(
+    id = this.id,
+    numOfParagraphs = this.numOfParagraphs,
+    paragraphLength = this.paragraphLength,
+    isDecorate = this.isDecorate,
+    isLink = this.isLink,
+    isUl = this.isUl,
+    isOl = this.isOl,
+    isDl = this.isDl,
+    isBq = this.isBq,
+    isCode = this.isCode,
+    isHeaders = this.isHeaders,
+    isAllCaps = this.isAllCaps,
+    isPrudeVer = this.isPrudeVer,
+    isReturnPlainText = this.isReturnPlainText,
+    isParagraphLengthShow = this.isParagraphLengthShow
 )

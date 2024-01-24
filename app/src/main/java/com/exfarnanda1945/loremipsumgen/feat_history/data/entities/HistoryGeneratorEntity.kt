@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.exfarnanda1945.loremipsumgen.feat_history.domain.models.GeneratorSetting
+import com.exfarnanda1945.loremipsumgen.feat_history.domain.models.HistoryGenerator
 
 @Entity(
     tableName = "history_generator",
@@ -24,5 +24,20 @@ data class HistoryGeneratorEntity(
     @ColumnInfo("result")
     val result: String,
     @ColumnInfo("setting_id")
-    val setting: GeneratorSetting
+    val setting: GeneratorSettingEntity
 )
+
+fun HistoryGeneratorEntity.toModel() = HistoryGenerator(
+    id = this.id,
+    createdAt = this.createdAt,
+    result = this.result,
+    setting = this.setting.toModel()
+)
+
+fun HistoryGenerator.toEntity() = HistoryGeneratorEntity(
+    result = this.result,
+    createdAt = this.createdAt,
+    id = this.id,
+    setting = this.setting.toEntity()
+)
+

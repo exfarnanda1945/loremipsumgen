@@ -17,6 +17,5 @@ data class GeneratorSetting(
     val isAllCaps:Boolean,
     val isPrudeVer:Boolean,
     val isReturnPlainText:Boolean,
-    val isParagraphLengthShow: Boolean,
-    val historyId:Int
+    val isParagraphLengthShow: Boolean
 )

@@ -9,7 +9,7 @@ import com.exfarnanda1945.loremipsumgen.feat_history.data.entities.HistoryGenera
 @Dao
 interface IHistoryGeneratorDao {
     @Insert
-    suspend fun create(history: HistoryGeneratorEntity): Int
+    suspend fun create(history: HistoryGeneratorEntity)
 
     @Delete
     suspend fun delete(id: Int)

@@ -11,7 +11,7 @@ class HistoryGeneratorRepositoryImpl @Inject constructor(
     private val settingDao: IGeneratorSettingDao,
     private val historyDao: IHistoryGeneratorDao
 ) : IHistoryRepository {
-    override suspend fun insert(data: HistoryGenerator): Resource<Unit> {
+    override suspend fun insert(data: HistoryGenerator): Resource<Int> {
         TODO("Not yet implemented")
     }
 

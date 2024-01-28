@@ -1,6 +1,6 @@
 package com.exfarnanda1945.loremipsumgen.feat_generator.utils
 
-import com.exfarnanda1945.loremipsumgen.feat_generator.presentation.GeneratorState
+import com.exfarnanda1945.loremipsumgen.feat_generator.presentation.screen.generator.GeneratorState
 
 object UrlParamGenerator {
 

@@ -1,4 +1,4 @@
-package com.exfarnanda1945.loremipsumgen.feat_generator.presentation
+package com.exfarnanda1945.loremipsumgen.feat_generator.presentation.screen.generator
 
 import com.exfarnanda1945.loremipsumgen.feat_generator.utils.ParagraphLengthEnum
 

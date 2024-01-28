@@ -20,17 +20,17 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    private fun provideClient(): OkHttpClient =
+    fun provideClient(): OkHttpClient =
         OkHttpClient.Builder().readTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS).build()
 
     @Singleton
     @Provides
-    private fun provideGson(): Gson = GsonBuilder().setLenient().create()
+    fun provideGson(): Gson = GsonBuilder().setLenient().create()
 
     @Singleton
     @Provides
-    private fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit =
+    fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit =
         Retrofit.Builder().client(client).baseUrl(BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))

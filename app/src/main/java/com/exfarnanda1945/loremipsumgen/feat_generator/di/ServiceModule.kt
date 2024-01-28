@@ -13,6 +13,6 @@ import javax.inject.Singleton
 object ServiceModule {
     @Singleton
     @Provides
-    private fun provideGeneratorService(retrofit: Retrofit): IGeneratorService =
+     fun provideGeneratorService(retrofit: Retrofit): IGeneratorService =
         retrofit.create(IGeneratorService::class.java)
 }

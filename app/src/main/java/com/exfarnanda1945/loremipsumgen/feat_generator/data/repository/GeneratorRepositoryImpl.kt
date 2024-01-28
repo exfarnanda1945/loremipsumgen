@@ -12,13 +12,13 @@ class GeneratorRepositoryImpl @Inject constructor(private val generatorService: 
         try {
             val response = generatorService.generate(url)
             if (response.code() != 200) {
-                return Resource.failure(response.message())
+                return Resource.Failure(response.message())
             }
 
             val result = response.body()!!
-            return Resource.success(result)
+            return Resource.Success(result)
         } catch (e: Exception) {
-            return Resource.failure(e.localizedMessage?.toString() ?: "Unknown Error")
+            return Resource.Failure(e.localizedMessage?.toString() ?: "Unknown Error")
         }
     }
 }

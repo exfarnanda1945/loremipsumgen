@@ -1,8 +1,10 @@
 package com.exfarnanda1945.loremipsumgen.core.utils
 
-data class Resource<T>(val isSuccess: Boolean, val data: T?, val message: String = "") {
-    companion object {
-        fun <T> success(data: T): Resource<T> = Resource(true, data)
-        fun <T> failure(message: String): Resource<T> = Resource(false, null, message)
-    }
+sealed class Resource<T>(
+    val data: T? = null,
+    val message: String = "",
+) {
+    class Success<T>(data: T) : Resource<T>(data)
+    class Failure<T>(message: String, data: T? = null) : Resource<T>(data, message)
+    class Loading<T> : Resource<T>()
 }

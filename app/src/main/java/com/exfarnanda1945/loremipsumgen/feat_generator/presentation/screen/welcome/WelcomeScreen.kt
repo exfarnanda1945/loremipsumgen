@@ -1,6 +1,5 @@
 package com.exfarnanda1945.loremipsumgen.feat_generator.presentation.screen.welcome
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

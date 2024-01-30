@@ -121,7 +121,7 @@ fun GeneratorScreen() {
                             label = "Description List"
                         )
                         CheckBoxLabel(
-                            checked = true,
+                            checked = false,
                             onCheckedChange = {},
                             label = "Return text as ${if (true) "Text" else "Html"}"
                         )
@@ -153,7 +153,7 @@ fun GeneratorScreen() {
             Spacer(modifier = Modifier.height(20.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.spacedBy(14.dp)
             ) {
                 ElevatedButton(
                     onClick = { /*TODO*/ },
@@ -161,7 +161,8 @@ fun GeneratorScreen() {
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary,
                         contentColor = MaterialTheme.colorScheme.onPrimary
-                    )
+                    ),
+                    modifier=Modifier.weight(1f)
                 ) {
                     Text(text = "Generate")
                 }
@@ -171,7 +172,8 @@ fun GeneratorScreen() {
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.onSecondary,
                         contentColor = MaterialTheme.colorScheme.secondary
-                    )
+                    ),
+                    modifier=Modifier.weight(1f)
                 ) {
                     Text(text = "Reset")
                 }

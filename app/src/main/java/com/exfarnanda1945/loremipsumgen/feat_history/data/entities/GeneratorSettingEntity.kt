@@ -3,10 +3,11 @@ package com.exfarnanda1945.loremipsumgen.feat_history.data.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.exfarnanda1945.loremipsumgen.core.utils.Constant.SETTING_TABLE_NAME
 import com.exfarnanda1945.loremipsumgen.feat_generator.utils.ParagraphLengthEnum
 
 @Entity(
-    tableName = "generator_setting",
+    tableName = SETTING_TABLE_NAME,
 )
 data class GeneratorSettingEntity(
     @PrimaryKey(autoGenerate = true)

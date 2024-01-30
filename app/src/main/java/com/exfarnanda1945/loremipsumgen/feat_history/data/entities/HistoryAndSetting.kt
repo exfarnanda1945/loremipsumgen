@@ -70,7 +70,7 @@ fun HistoryGenerator.toEntity(): HistoryAndSetting {
             isReturnPlainText = setting.isReturnPlainText,
             numOfParagraphs = setting.numOfParagraphs,
             paragraphLength = setting.paragraphLength,
-            historyId = this.id.toLong()
+            historyId = this.id
         )
     )
 }

@@ -10,6 +10,7 @@ import com.exfarnanda1945.loremipsumgen.feat_generator.domain.repository.IGenera
 import com.exfarnanda1945.loremipsumgen.feat_generator.domain.usecase.GeneratorUseCase
 import com.exfarnanda1945.loremipsumgen.feat_generator.utils.UrlParamGenerator
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -25,6 +26,8 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
         GeneratorState()
     )
 
+    private var generateJob: Job? = null
+
     private val _result = MutableStateFlow<Resource<String>>(Resource.Loading())
     val result = _result.asStateFlow()
 
@@ -32,8 +35,12 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
         !(generatorState.numOfParagraphs == "" || generatorState.numOfParagraphs.toInt() == 0)
 
     private fun generate() {
+        if(generateJob?.isActive == true){
+            return
+        }
+
         val url = UrlParamGenerator.generate(generatorState)
-        viewModelScope.launch {
+       generateJob =  viewModelScope.launch {
             val result = generatorUseCase(url)
             result.collect {
                 _result.value = it
@@ -115,5 +122,8 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
         }
     }
 
-
+    override fun onCleared() {
+        super.onCleared()
+        generateJob = null
+    }
 }

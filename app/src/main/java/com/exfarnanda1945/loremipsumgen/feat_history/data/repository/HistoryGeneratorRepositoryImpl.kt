@@ -21,10 +21,10 @@ class HistoryGeneratorRepositoryImpl @Inject constructor(
         list.map { it.toModel() }
     }
 
-    override suspend fun get(id: Int): Resource<HistoryGenerator> = SafeCall(call = {
+    override suspend fun get(id: Int): Resource<HistoryGenerator> = SafeCall{
         val get = historyDao.get(id)
         get.toModel()
-    })
+    }
 
     override suspend fun delete(id: Int): Resource<Unit> = SafeCall {
         historyDao.delete(id)

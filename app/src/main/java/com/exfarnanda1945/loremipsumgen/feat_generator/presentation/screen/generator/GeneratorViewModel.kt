@@ -35,12 +35,12 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
         !(generatorState.numOfParagraphs == "" || generatorState.numOfParagraphs.toInt() == 0)
 
     private fun generate() {
-        if(generateJob?.isActive == true){
+        if (generateJob?.isActive == true) {
             return
         }
 
         val url = UrlParamGenerator.generate(generatorState)
-       generateJob =  viewModelScope.launch {
+        generateJob = viewModelScope.launch {
             val result = generatorUseCase(url)
             result.collect {
                 _result.value = it
@@ -118,6 +118,18 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
 
             GeneratorEvent.OnResetOption -> {
                 generatorState = GeneratorState()
+            }
+
+            is GeneratorEvent.OnHtmlOptionExpanded -> {
+                generatorState = generatorState.copy(
+                    isHtmlOptionExpand = event.isHtmlOptionExpanded
+                )
+            }
+
+            is GeneratorEvent.OnMoreOptionExpanded -> {
+                generatorState = generatorState.copy(
+                    isMoreOptionExpand = event.isMoreOptionExpanded
+                )
             }
         }
     }

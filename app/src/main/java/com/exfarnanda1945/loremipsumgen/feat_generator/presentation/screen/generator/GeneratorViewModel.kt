@@ -25,25 +25,20 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
     var generatorState by mutableStateOf(
         GeneratorState()
     )
+        private set
 
     private var generateJob: Job? = null
-
-    private val _result = MutableStateFlow<Resource<String>>(Resource.Loading())
-    val result = _result.asStateFlow()
-
-    val enabledGenerateBtn =
-        !(generatorState.numOfParagraphs == "" || generatorState.numOfParagraphs.toInt() == 0)
+    private val _generateResult = MutableStateFlow<Resource<String>>(Resource.Loading())
+    val result = _generateResult.asStateFlow()
 
     private fun generate() {
-        if (generateJob?.isActive == true) {
-            return
-        }
+        if (generateJob != null) return
 
         val url = UrlParamGenerator.generate(generatorState)
         generateJob = viewModelScope.launch {
             val result = generatorUseCase(url)
             result.collect {
-                _result.value = it
+                _generateResult.value = it
             }
         }
     }
@@ -122,13 +117,13 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
 
             is GeneratorEvent.OnHtmlOptionExpanded -> {
                 generatorState = generatorState.copy(
-                    isHtmlOptionExpand = event.isHtmlOptionExpanded
+                    isHtmlOptionExpand = !generatorState.isHtmlOptionExpand
                 )
             }
 
             is GeneratorEvent.OnMoreOptionExpanded -> {
                 generatorState = generatorState.copy(
-                    isMoreOptionExpand = event.isMoreOptionExpanded
+                    isMoreOptionExpand = !generatorState.isMoreOptionExpand
                 )
             }
         }
@@ -138,4 +133,7 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
         super.onCleared()
         generateJob = null
     }
+
+    val enabledGenerateBtn =
+        !(generatorState.numOfParagraphs == "" || generatorState.numOfParagraphs.toInt() == 0)
 }

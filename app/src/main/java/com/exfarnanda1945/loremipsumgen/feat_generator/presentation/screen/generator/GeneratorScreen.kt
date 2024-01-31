@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.exfarnanda1945.loremipsumgen.core.ui.component.CheckBoxLabel
 import com.exfarnanda1945.loremipsumgen.core.ui.component.DropDownField
 import com.exfarnanda1945.loremipsumgen.core.ui.component.OutlinedTextField
@@ -34,11 +35,14 @@ import com.exfarnanda1945.loremipsumgen.feat_generator.utils.ParagraphLengthEnum
 
 @Composable
 fun GeneratorScreen() {
-    Scaffold {
+    val generatorVm = hiltViewModel<GeneratorViewModel>()
+    val state = generatorVm.generatorState
+
+    Scaffold { padding ->
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(it)
+                .padding(padding)
                 .padding(vertical = 16.dp, horizontal = 24.dp),
         ) {
             Text(
@@ -54,8 +58,9 @@ fun GeneratorScreen() {
             Spacer(modifier = Modifier.height(20.dp))
             OutlinedTextField(
                 title = "Number of Paragraph",
-                value = "0",
+                value = state.numOfParagraphs,
                 onValueChange = {
+                    generatorVm.onEvent(GeneratorEvent.OnNumOfParagraphChange(it))
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
@@ -65,86 +70,122 @@ fun GeneratorScreen() {
             Spacer(modifier = Modifier.height(12.dp))
             DropDownField(
                 title = "Paragraph Length",
-                isExpanded = false,
-                onExpandedChange = {},
-                onDismissRequest = { /*TODO*/ },
-                value = "Small",
+                isExpanded = state.isParagraphLengthShow,
+                onExpandedChange = {
+                    generatorVm.onEvent(GeneratorEvent.OnParagraphLengthShow)
+                },
+                onDismissRequest = {
+                    generatorVm.onEvent(GeneratorEvent.OnParagraphLengthShow)
+                },
+                value = state.paragraphLength.name,
                 dropDownContent = {
                     ParagraphLengthEnum.values().forEach {
                         DropdownMenuItem(text = {
                             Text(text = it.name)
-                        }, onClick = {})
+                        }, onClick = {
+                            generatorVm.apply {
+                                onEvent(GeneratorEvent.OnParagraphLengthChange(it))
+                                onEvent(GeneratorEvent.OnParagraphLengthShow)
+                            }
+                        })
                     }
                 })
             Spacer(modifier = Modifier.height(12.dp))
-            GeneratorOptions(title = "Options") {
+            GeneratorOptions(
+                title = "Options",
+                isExpanded = state.isMoreOptionExpand,
+                onExpandedClick = { generatorVm.onEvent(GeneratorEvent.OnMoreOptionExpanded) }) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     CheckBoxLabel(
-                        checked = true,
-                        onCheckedChange = {},
+                        checked = state.addAllCaps,
+                        onCheckedChange = {
+                            generatorVm.onEvent(GeneratorEvent.OnUseAllCapsChecked(it))
+                        },
                         label = "Use All Caps"
                     )
                     CheckBoxLabel(
-                        checked = true,
-                        onCheckedChange = {},
+                        checked = state.prudeVer,
+                        onCheckedChange = {
+                            generatorVm.onEvent(GeneratorEvent.OnPrudeVerChecked(it))
+                        },
                         label = "Prude Version"
                     )
                 }
             }
             Spacer(modifier = Modifier.height(12.dp))
-            GeneratorOptions(title = "Add Other HTML Elements") {
+            GeneratorOptions(title = "Add Other HTML Elements",
+                isExpanded = state.isHtmlOptionExpand,
+                onExpandedClick = { generatorVm.onEvent(GeneratorEvent.OnHtmlOptionExpanded) }) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Column {
                         CheckBoxLabel(
-                            checked = true,
-                            onCheckedChange = {},
+                            checked = state.addLink,
+                            onCheckedChange = {
+                                generatorVm.onEvent(GeneratorEvent.OnLinksChecked(it))
+                            },
                             label = "Links"
                         )
                         CheckBoxLabel(
-                            checked = true,
-                            onCheckedChange = {},
+                            checked = state.addUl,
+                            onCheckedChange = {
+                                generatorVm.onEvent(GeneratorEvent.OnUnorderedListChecked(it))
+                            },
                             label = "Unordered List"
                         )
                         CheckBoxLabel(
-                            checked = true,
-                            onCheckedChange = {},
+                            checked = state.addOl,
+                            onCheckedChange = {
+                                generatorVm.onEvent(GeneratorEvent.OnOrderedListChecked(it))
+                            },
                             label = "Ordered List"
                         )
                         CheckBoxLabel(
-                            checked = true,
-                            onCheckedChange = {},
+                            checked = state.addDl,
+                            onCheckedChange = {
+                                generatorVm.onEvent(GeneratorEvent.OnDescriptionListChecked(it))
+                            },
                             label = "Description List"
                         )
                         CheckBoxLabel(
-                            checked = false,
-                            onCheckedChange = {},
-                            label = "Return text as ${if (true) "Text" else "Html"}"
+                            checked = state.returnPlainText,
+                            onCheckedChange = {
+                                generatorVm.onEvent(GeneratorEvent.OnReturnPlainTextChange(it))
+                            },
+                            label = "Return text as ${if (state.returnPlainText) "Text" else "Html"}"
                         )
                     }
                     Column {
                         CheckBoxLabel(
-                            checked = true,
-                            onCheckedChange = {},
+                            checked = state.addBq,
+                            onCheckedChange = {
+                                generatorVm.onEvent(GeneratorEvent.OnBlockquoteChecked(it))
+                            },
                             label = "Blockquote"
                         )
                         CheckBoxLabel(
-                            checked = true,
-                            onCheckedChange = {},
+                            checked = state.addCode,
+                            onCheckedChange = {
+                                generatorVm.onEvent(GeneratorEvent.OnCodeChecked(it))
+                            },
                             label = "Code"
                         )
                         CheckBoxLabel(
-                            checked = true,
-                            onCheckedChange = {},
+                            checked = state.addHeaders,
+                            onCheckedChange = {
+                                generatorVm.onEvent(GeneratorEvent.OnHeadingChecked(it))
+                            },
                             label = "Heading"
                         )
                         CheckBoxLabel(
-                            checked = true,
-                            onCheckedChange = {},
+                            checked = state.isDecorate,
+                            onCheckedChange = {
+                                generatorVm.onEvent(GeneratorEvent.OnBoldChecked(it))
+                            },
                             label = "Bold and Italic"
                         )
                     }
@@ -158,22 +199,23 @@ fun GeneratorScreen() {
                 ElevatedButton(
                     onClick = { /*TODO*/ },
                     shape = RoundedCornerShape(8.dp),
+                    enabled = generatorVm.enabledGenerateBtn,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary,
                         contentColor = MaterialTheme.colorScheme.onPrimary
                     ),
-                    modifier=Modifier.weight(1f)
+                    modifier = Modifier.weight(1f)
                 ) {
                     Text(text = "Generate")
                 }
                 ElevatedButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { generatorVm.onEvent(GeneratorEvent.OnResetOption) },
                     shape = RoundedCornerShape(8.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.onSecondary,
                         contentColor = MaterialTheme.colorScheme.secondary
                     ),
-                    modifier=Modifier.weight(1f)
+                    modifier = Modifier.weight(1f)
                 ) {
                     Text(text = "Reset")
                 }

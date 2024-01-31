@@ -1,5 +1,6 @@
 package com.exfarnanda1945.loremipsumgen.feat_generator.presentation.component
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,8 +21,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun GeneratorOptions(
     title: String,
-    isExpanded:Boolean,
-    onExpandedClick:() -> Unit,
+    isExpanded: Boolean,
+    onExpandedClick: () -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
@@ -31,7 +32,9 @@ fun GeneratorOptions(
             .padding(top = 14.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().clickable {
+                onExpandedClick()
+            },
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
@@ -40,14 +43,17 @@ fun GeneratorOptions(
                 modifier = Modifier.padding(bottom = 4.dp)
             )
             Icon(
-                imageVector = if(isExpanded) Icons.Filled.KeyboardArrowDown else Icons.Filled.KeyboardArrowRight,
+                imageVector = if (isExpanded) Icons.Filled.KeyboardArrowDown else Icons.Filled.KeyboardArrowRight,
                 contentDescription = "",
-                modifier = Modifier.padding(end = 20.dp).clickable {
-                  onExpandedClick()
-                },
+                modifier = Modifier
+                    .padding(end = 20.dp)
 
-            )
+                )
         }
-        content()
+        AnimatedVisibility(
+            visible = isExpanded,
+        ) {
+            content()
+        }
     }
 }

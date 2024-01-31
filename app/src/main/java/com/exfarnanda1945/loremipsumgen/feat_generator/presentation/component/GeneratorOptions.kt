@@ -1,11 +1,13 @@
 package com.exfarnanda1945.loremipsumgen.feat_generator.presentation.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +20,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun GeneratorOptions(
     title: String,
+    isExpanded:Boolean,
+    onExpandedClick:() -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
@@ -36,9 +40,12 @@ fun GeneratorOptions(
                 modifier = Modifier.padding(bottom = 4.dp)
             )
             Icon(
-                imageVector = Icons.Filled.KeyboardArrowRight,
+                imageVector = if(isExpanded) Icons.Filled.KeyboardArrowDown else Icons.Filled.KeyboardArrowRight,
                 contentDescription = "",
-                modifier = Modifier.padding(end = 20.dp)
+                modifier = Modifier.padding(end = 20.dp).clickable {
+                  onExpandedClick()
+                },
+
             )
         }
         content()

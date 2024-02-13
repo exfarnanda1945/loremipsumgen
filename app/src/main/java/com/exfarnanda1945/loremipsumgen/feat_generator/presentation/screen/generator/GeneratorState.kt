@@ -17,6 +17,6 @@ data class GeneratorState(
     val prudeVer:Boolean = false,
     val returnPlainText:Boolean = false,
     val isParagraphLengthShow: Boolean = false,
-    val isMoreOptionExpand:Boolean=false,
-    val isHtmlOptionExpand:Boolean=false,
+    val isMoreOptionExpand:Boolean=true,
+    val isHtmlOptionExpand:Boolean=true,
 )

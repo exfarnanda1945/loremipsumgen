@@ -3,21 +3,22 @@ package com.exfarnanda1945.loremipsumgen.feat_generator.presentation.screen.gene
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
+import com.exfarnanda1945.loremipsumgen.core.ui.viewmodel.BaseViewModel
 import com.exfarnanda1945.loremipsumgen.core.utils.Resource
 import com.exfarnanda1945.loremipsumgen.feat_generator.domain.repository.IGeneratorRepository
 import com.exfarnanda1945.loremipsumgen.feat_generator.domain.usecase.GeneratorUseCase
 import com.exfarnanda1945.loremipsumgen.feat_generator.utils.UrlParamGenerator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GeneratorViewModel @Inject constructor(private val repo: IGeneratorRepository) : ViewModel() {
+class GeneratorViewModel @Inject constructor(private val repo: IGeneratorRepository) :
+    BaseViewModel() {
 
     private val generatorUseCase by lazy {
         GeneratorUseCase(repo)
@@ -28,19 +29,31 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
         private set
 
     private var generateJob: Job? = null
-    private val _generateResult = MutableStateFlow<Resource<String>>(Resource.Loading())
-    val result = _generateResult.asStateFlow()
+
 
     private fun generate() {
         if (generateJob != null) return
 
+        sendUiEvent(UiEvent.ShowLoading(true))
+
         val url = UrlParamGenerator.generate(generatorState)
         generateJob = viewModelScope.launch {
-            val result = generatorUseCase(url)
-            result.collect {
-                _generateResult.value = it
+            delay(5000)
+            when (val result = generatorUseCase(url)) {
+                is Resource.Failure -> {
+                    sendUiEvent(UiEvent.ShowLoading(false))
+                    generateJob = null
+                    sendUiEvent(UiEvent.ShowToast(result.message))
+
+                }
+                is Resource.Success -> {
+                    sendUiEvent(UiEvent.ShowToast("Success bro"))
+                    generateJob = null
+                    sendUiEvent(UiEvent.ShowLoading(false))
+                }
             }
         }
+
     }
 
     fun onEvent(event: GeneratorEvent) {

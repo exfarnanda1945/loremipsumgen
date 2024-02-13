@@ -1,6 +1,10 @@
 package com.exfarnanda1945.loremipsumgen.feat_generator.presentation.screen.generator
 
+import android.util.Log
+import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,28 +12,65 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
+import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
 import com.exfarnanda1945.loremipsumgen.core.ui.theme.LoremipsumgenTheme
 
 @Composable
 fun GeneratorScreen() {
     val generatorVm = hiltViewModel<GeneratorViewModel>()
     val state = generatorVm.generatorState
+    val lifecycle = LocalLifecycleOwner.current
+    val context = LocalContext.current
+    var showDialog by remember { mutableStateOf(false) }
+
+    LaunchedEffect(lifecycle) {
+        lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            generatorVm.mainChannel.collect { uiEvent ->
+                when (uiEvent) {
+                    is UiEvent.NavigateTo -> TODO()
+                    is UiEvent.ShowSnackBar -> TODO()
+                    is UiEvent.ShowToast -> {
+                        Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT).show()
+                    }
+                    is UiEvent.ShowLoading -> {
+                        showDialog = uiEvent.isLoading
+                    }
+                }
+            }
+        }
+    }
+
+
 
     Scaffold { padding ->
         Column(
@@ -60,7 +101,11 @@ fun GeneratorScreen() {
                 verticalAlignment = Alignment.Bottom
             ) {
                 ElevatedButton(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+//                        showDialog = showDialog.not()
+                        generatorVm.onEvent(GeneratorEvent.OnGenerateBtnClick)
+                        Log.d("onClick", "GeneratorScreen: ButtonClicked!")
+                    },
                     shape = RoundedCornerShape(8.dp),
                     enabled = generatorVm.enabledGenerateBtn,
                     colors = ButtonDefaults.buttonColors(
@@ -81,6 +126,35 @@ fun GeneratorScreen() {
                     modifier = Modifier.weight(1f)
                 ) {
                     Text(text = "Reset")
+                }
+            }
+        }
+    }
+
+    if (showDialog) {
+        Dialog(
+            onDismissRequest = { showDialog = false },
+            properties = DialogProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false
+            ),
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(150.dp)
+                    .background(
+                        color = Color.White,
+                        shape = RoundedCornerShape(4.dp)
+                    )
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.align(
+                        Alignment.Center
+                    )
+                ) {
+                    CircularProgressIndicator()
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Text(text = "Generating...", textAlign = TextAlign.Center)
                 }
             }
         }

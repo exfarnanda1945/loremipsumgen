@@ -1,5 +1,6 @@
 package com.exfarnanda1945.loremipsumgen.core.ui.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Checkbox
@@ -24,6 +25,8 @@ fun CheckBoxLabel(
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Checkbox(checked = checked, onCheckedChange = onCheckedChange)
-        Text(label, style = TextStyle(fontSize = 14.sp))
+        Text(label, style = TextStyle(fontSize = 14.sp), modifier = Modifier.clickable {
+            onCheckedChange(!checked)
+        })
     }
 }

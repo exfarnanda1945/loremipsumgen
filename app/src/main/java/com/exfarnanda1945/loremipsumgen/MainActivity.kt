@@ -3,8 +3,9 @@ package com.exfarnanda1945.loremipsumgen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.navigation.compose.rememberNavController
+import com.exfarnanda1945.loremipsumgen.core.navigation.AppNavGraph
 import com.exfarnanda1945.loremipsumgen.core.ui.theme.LoremipsumgenTheme
-import com.exfarnanda1945.loremipsumgen.feat_generator.presentation.screen.generator.GeneratorScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -13,7 +14,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LoremipsumgenTheme {
-                GeneratorScreen()
+                val navHostController = rememberNavController()
+                AppNavGraph(navHostController = navHostController)
             }
         }
     }

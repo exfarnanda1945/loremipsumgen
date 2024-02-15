@@ -17,13 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.exfarnanda1945.loremipsumgen.core.ui.theme.LoremipsumgenTheme
+import androidx.navigation.NavHostController
+import com.exfarnanda1945.loremipsumgen.core.navigation.AppRoutes
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(navHostController: NavHostController) {
     Scaffold {
         Column(
             modifier = Modifier
@@ -60,7 +60,10 @@ fun WelcomeScreen() {
                     )
                 )
                 Spacer(modifier = Modifier.height(30.dp))
-                ElevatedButton(onClick = { /*TODO*/ }, shape = RoundedCornerShape(6.dp)) {
+                ElevatedButton(
+                    onClick = { navHostController.navigate(AppRoutes.GeneratorScreen.route) },
+                    shape = RoundedCornerShape(6.dp)
+                ) {
                     Text(
                         text = "Lets generate the text",
                         modifier = Modifier.padding(vertical = 8.dp, horizontal = 12.dp)
@@ -71,18 +74,18 @@ fun WelcomeScreen() {
     }
 }
 
-@Preview
-@Composable
-fun WelcomeScreenPrev() {
-    LoremipsumgenTheme {
-        WelcomeScreen()
-    }
-}
-
-@Preview
-@Composable
-fun WelcomeScreenDarkPrev() {
-    LoremipsumgenTheme(darkTheme = true) {
-        WelcomeScreen()
-    }
-}
+//@Preview
+//@Composable
+//fun WelcomeScreenPrev() {
+//    LoremipsumgenTheme {
+//        WelcomeScreen()
+//    }
+//}
+//
+//@Preview
+//@Composable
+//fun WelcomeScreenDarkPrev() {
+//    LoremipsumgenTheme(darkTheme = true) {
+//        WelcomeScreen()
+//    }
+//}

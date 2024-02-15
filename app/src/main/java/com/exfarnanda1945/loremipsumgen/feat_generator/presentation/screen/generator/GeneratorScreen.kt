@@ -34,7 +34,6 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -42,11 +41,12 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavHostController
+import com.exfarnanda1945.loremipsumgen.core.navigation.AppRoutes
 import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
-import com.exfarnanda1945.loremipsumgen.core.ui.theme.LoremipsumgenTheme
 
 @Composable
-fun GeneratorScreen() {
+fun GeneratorScreen(navHostController: NavHostController) {
     val generatorVm = hiltViewModel<GeneratorViewModel>()
     val state = generatorVm.generatorState
     val lifecycle = LocalLifecycleOwner.current
@@ -57,11 +57,15 @@ fun GeneratorScreen() {
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             generatorVm.mainChannel.collect { uiEvent ->
                 when (uiEvent) {
-                    is UiEvent.NavigateTo -> TODO()
+                    is UiEvent.NavigateTo -> {
+                        navHostController.navigate(AppRoutes.ResultGenScreen.setResult("nahbruh wtf man"))
+                    }
+
                     is UiEvent.ShowSnackBar -> TODO()
                     is UiEvent.ShowToast -> {
                         Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT).show()
                     }
+
                     is UiEvent.ShowLoading -> {
                         showDialog = uiEvent.isLoading
                     }
@@ -160,20 +164,20 @@ fun GeneratorScreen() {
         }
     }
 }
-
-
-@Preview
-@Composable
-fun GeneratorScreenPreview() {
-    LoremipsumgenTheme {
-        GeneratorScreen()
-    }
-}
-
-@Preview
-@Composable
-fun GeneratorScreenDarkPreview() {
-    LoremipsumgenTheme(darkTheme = true) {
-        GeneratorScreen()
-    }
-}
+//
+//
+//@Preview
+//@Composable
+//fun GeneratorScreenPreview() {
+//    LoremipsumgenTheme {
+//        GeneratorScreen()
+//    }
+//}
+//
+//@Preview
+//@Composable
+//fun GeneratorScreenDarkPreview() {
+//    LoremipsumgenTheme(darkTheme = true) {
+//        GeneratorScreen()
+//    }
+//}

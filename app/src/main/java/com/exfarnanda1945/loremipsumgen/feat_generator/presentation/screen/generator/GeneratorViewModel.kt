@@ -34,6 +34,11 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
     private fun generate() {
         if (generateJob != null) return
 
+        if (generatorState.numOfParagraphs.isEmpty() || generatorState.numOfParagraphs == "0") {
+            sendUiEvent(UiEvent.ShowToast("Number of paragraph can't be empty or 0"))
+            return
+        }
+
         sendUiEvent(UiEvent.ShowLoading(true))
 
         val url = UrlParamGenerator.generate(generatorState)
@@ -46,10 +51,11 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
                     sendUiEvent(UiEvent.ShowToast(result.message))
 
                 }
+
                 is Resource.Success -> {
-                    sendUiEvent(UiEvent.ShowToast("Success bro"))
-                    generateJob = null
                     sendUiEvent(UiEvent.ShowLoading(false))
+                    sendUiEvent(UiEvent.NavigateTo(result.data!!))
+                    generateJob = null
                 }
             }
         }

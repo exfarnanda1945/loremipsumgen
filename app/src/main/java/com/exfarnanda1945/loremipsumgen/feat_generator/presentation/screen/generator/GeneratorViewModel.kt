@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
+import com.exfarnanda1945.loremipsumgen.core.navigation.AppRoutes
 import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
 import com.exfarnanda1945.loremipsumgen.core.ui.viewmodel.BaseViewModel
 import com.exfarnanda1945.loremipsumgen.core.utils.Resource
@@ -12,7 +13,6 @@ import com.exfarnanda1945.loremipsumgen.feat_generator.domain.usecase.GeneratorU
 import com.exfarnanda1945.loremipsumgen.feat_generator.utils.UrlParamGenerator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,6 +25,11 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
     }
     var generatorState by mutableStateOf(
         GeneratorState()
+    )
+        private set
+
+    var optionState by mutableStateOf(
+        OptionExpandState()
     )
         private set
 
@@ -43,7 +48,6 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
 
         val url = UrlParamGenerator.generate(generatorState)
         generateJob = viewModelScope.launch {
-            delay(5000)
             when (val result = generatorUseCase(url)) {
                 is Resource.Failure -> {
                     sendUiEvent(UiEvent.ShowLoading(false))
@@ -54,7 +58,11 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
 
                 is Resource.Success -> {
                     sendUiEvent(UiEvent.ShowLoading(false))
-                    sendUiEvent(UiEvent.NavigateTo(result.data!!))
+                    sendUiEvent(
+                        UiEvent.NavigateTo(
+                            AppRoutes.ResultGenScreen.setResult(result = result.data!!)
+                        )
+                    )
                     generateJob = null
                 }
             }
@@ -135,14 +143,14 @@ class GeneratorViewModel @Inject constructor(private val repo: IGeneratorReposit
             }
 
             is GeneratorEvent.OnHtmlOptionExpanded -> {
-                generatorState = generatorState.copy(
-                    isHtmlOptionExpand = !generatorState.isHtmlOptionExpand
+                optionState = optionState.copy(
+                    isHtmlOptionExpand = !optionState.isHtmlOptionExpand
                 )
             }
 
             is GeneratorEvent.OnMoreOptionExpanded -> {
-                generatorState = generatorState.copy(
-                    isMoreOptionExpand = !generatorState.isMoreOptionExpand
+                optionState = optionState.copy(
+                    isMoreOptionExpand = !optionState.isMoreOptionExpand
                 )
             }
         }

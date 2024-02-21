@@ -49,6 +49,7 @@ import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
 fun GeneratorScreen(navHostController: NavHostController) {
     val generatorVm = hiltViewModel<GeneratorViewModel>()
     val state = generatorVm.generatorState
+    val optionState = generatorVm.optionState
     val lifecycle = LocalLifecycleOwner.current
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
@@ -57,18 +58,11 @@ fun GeneratorScreen(navHostController: NavHostController) {
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             generatorVm.mainChannel.collect { uiEvent ->
                 when (uiEvent) {
-                    is UiEvent.NavigateTo -> {
-                        navHostController.navigate(AppRoutes.ResultGenScreen.setResult("nahbruh wtf man"))
-                    }
-
-                    is UiEvent.ShowSnackBar -> TODO()
-                    is UiEvent.ShowToast -> {
-                        Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT).show()
-                    }
-
-                    is UiEvent.ShowLoading -> {
-                        showDialog = uiEvent.isLoading
-                    }
+                    is UiEvent.NavigateTo -> navHostController.navigate(uiEvent.path)
+                    is UiEvent.ShowToast -> Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT)
+                        .show()
+                    is UiEvent.ShowLoading -> showDialog = uiEvent.isLoading
+                    else -> {}
                 }
             }
         }
@@ -95,6 +89,7 @@ fun GeneratorScreen(navHostController: NavHostController) {
             )
             GeneratorForm(
                 state = state,
+                optionState = optionState,
                 generatorVm = generatorVm,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -106,7 +101,6 @@ fun GeneratorScreen(navHostController: NavHostController) {
             ) {
                 ElevatedButton(
                     onClick = {
-//                        showDialog = showDialog.not()
                         generatorVm.onEvent(GeneratorEvent.OnGenerateBtnClick)
                         Log.d("onClick", "GeneratorScreen: ButtonClicked!")
                     },
@@ -164,20 +158,3 @@ fun GeneratorScreen(navHostController: NavHostController) {
         }
     }
 }
-//
-//
-//@Preview
-//@Composable
-//fun GeneratorScreenPreview() {
-//    LoremipsumgenTheme {
-//        GeneratorScreen()
-//    }
-//}
-//
-//@Preview
-//@Composable
-//fun GeneratorScreenDarkPreview() {
-//    LoremipsumgenTheme(darkTheme = true) {
-//        GeneratorScreen()
-//    }
-//}

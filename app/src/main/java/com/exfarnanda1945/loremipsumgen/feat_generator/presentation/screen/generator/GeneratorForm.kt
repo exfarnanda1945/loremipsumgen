@@ -6,14 +6,20 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.exfarnanda1945.loremipsumgen.core.ui.component.CheckBoxLabel
 import com.exfarnanda1945.loremipsumgen.core.ui.component.DropDownField
 import com.exfarnanda1945.loremipsumgen.core.ui.component.OutlinedTextField
@@ -124,13 +130,54 @@ fun GeneratorForm(
                         },
                         label = "Description List"
                     )
-//                    CheckBoxLabel(
-//                        checked = state.returnPlainText,
-//                        onCheckedChange = {
-//                            generatorVm.onEvent(GeneratorEvent.OnReturnPlainTextChange(it))
-//                        },
-//                        label = "Return text as ${if (state.returnPlainText) "Text" else "Html"}"
-//                    )
+                    Column(modifier = Modifier.padding(vertical = 12.dp)) {
+                        Text(
+                            text = "Return as", style = TextStyle(
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.W500
+                            )
+                        )
+                        Row {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                RadioButton(
+                                    selected = !state.returnPlainText,
+                                    onClick = {
+                                        generatorVm.onEvent(
+                                            GeneratorEvent.OnReturnPlainTextChange(
+                                                false
+                                            )
+                                        )
+                                    }
+                                )
+                                Text(
+                                    text = "Html",
+                                    style = TextStyle(
+                                        fontSize = 14.sp
+                                    ),
+                                    modifier = Modifier.padding(start = 2.dp)
+                                )
+                            }
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                RadioButton(
+                                    selected = state.returnPlainText,
+                                    onClick = {
+                                        generatorVm.onEvent(
+                                            GeneratorEvent.OnReturnPlainTextChange(
+                                                true
+                                            )
+                                        )
+                                    }
+                                )
+                                Text(
+                                    text = "Plain Text",
+                                    style = TextStyle(
+                                        fontSize = 14.sp
+                                    ),
+                                    modifier = Modifier.padding(start = 2.dp)
+                                )
+                            }
+                        }
+                    }
 
                 }
                 Column {

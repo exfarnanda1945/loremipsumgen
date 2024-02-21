@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.exfarnanda1945.loremipsumgen.core.ui.component.HtmlParser
 
 @Composable
 fun ResultScreen(
@@ -33,8 +33,7 @@ fun ResultScreen(
                     .padding(8.dp)
                     .verticalScroll(scrollState)
             ) {
-//                HtmlParser(text = result)
-                Text(text = result)
+                HtmlParser(text = result)
             }
         }
     }

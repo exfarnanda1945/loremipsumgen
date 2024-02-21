@@ -8,13 +8,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.material3.OutlinedTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,11 +41,10 @@ fun DropDownField(
             modifier = Modifier
                 .padding(top = 8.dp)
         ) {
-            TextField(
+            OutlinedTextField(
                 value = value,
                 onValueChange = {},
                 readOnly = true,
-                colors = ExposedDropdownMenuDefaults.textFieldColors(),
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
                 },

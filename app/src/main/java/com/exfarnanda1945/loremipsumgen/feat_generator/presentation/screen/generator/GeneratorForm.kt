@@ -21,8 +21,13 @@ import com.exfarnanda1945.loremipsumgen.feat_generator.presentation.component.Ge
 import com.exfarnanda1945.loremipsumgen.feat_generator.utils.ParagraphLengthEnum
 
 @Composable
-fun GeneratorForm(state:GeneratorState,generatorVm:GeneratorViewModel,modifier:Modifier = Modifier) {
-    Column(modifier=modifier) {
+fun GeneratorForm(
+    state: GeneratorState,
+    optionState: OptionExpandState,
+    generatorVm: GeneratorViewModel,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier) {
         Spacer(modifier = Modifier.height(20.dp))
         OutlinedTextField(
             title = "Number of Paragraph",
@@ -35,7 +40,7 @@ fun GeneratorForm(state:GeneratorState,generatorVm:GeneratorViewModel,modifier:M
                 imeAction = ImeAction.Done
             )
         )
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         DropDownField(
             title = "Paragraph Length",
             isExpanded = state.isParagraphLengthShow,
@@ -61,7 +66,7 @@ fun GeneratorForm(state:GeneratorState,generatorVm:GeneratorViewModel,modifier:M
         Spacer(modifier = Modifier.height(12.dp))
         GeneratorOptions(
             title = "Options",
-            isExpanded = state.isMoreOptionExpand,
+            isExpanded = optionState.isMoreOptionExpand,
             onExpandedClick = { generatorVm.onEvent(GeneratorEvent.OnMoreOptionExpanded) }) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -84,7 +89,7 @@ fun GeneratorForm(state:GeneratorState,generatorVm:GeneratorViewModel,modifier:M
         }
         Spacer(modifier = Modifier.height(12.dp))
         GeneratorOptions(title = "Add Other HTML Elements",
-            isExpanded = state.isHtmlOptionExpand,
+            isExpanded = optionState.isHtmlOptionExpand,
             onExpandedClick = { generatorVm.onEvent(GeneratorEvent.OnHtmlOptionExpanded) }) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -119,13 +124,14 @@ fun GeneratorForm(state:GeneratorState,generatorVm:GeneratorViewModel,modifier:M
                         },
                         label = "Description List"
                     )
-                    CheckBoxLabel(
-                        checked = state.returnPlainText,
-                        onCheckedChange = {
-                            generatorVm.onEvent(GeneratorEvent.OnReturnPlainTextChange(it))
-                        },
-                        label = "Return text as ${if (state.returnPlainText) "Text" else "Html"}"
-                    )
+//                    CheckBoxLabel(
+//                        checked = state.returnPlainText,
+//                        onCheckedChange = {
+//                            generatorVm.onEvent(GeneratorEvent.OnReturnPlainTextChange(it))
+//                        },
+//                        label = "Return text as ${if (state.returnPlainText) "Text" else "Html"}"
+//                    )
+
                 }
                 Column {
                     CheckBoxLabel(

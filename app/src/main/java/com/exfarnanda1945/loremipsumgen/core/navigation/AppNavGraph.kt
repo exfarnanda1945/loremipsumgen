@@ -21,12 +21,12 @@ fun AppNavGraph(navHostController: NavHostController) {
         }
         composable(
             AppRoutes.ResultGenScreen.route,
-            arguments = listOf(navArgument("result") {
+            arguments = listOf(navArgument("value") {
                 type = NavType.StringType
-
+                defaultValue = ""
             }),
         ) { entry ->
-            val result = entry.arguments?.getString("result")
+            val result = entry.arguments?.getString("value")
             result?.let {
                 ResultScreen(result = it, navHostController = navHostController)
             }

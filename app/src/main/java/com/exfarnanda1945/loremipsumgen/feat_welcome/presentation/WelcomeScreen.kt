@@ -1,5 +1,6 @@
-package com.exfarnanda1945.loremipsumgen.feat_generator.presentation.screen.welcome
+package com.exfarnanda1945.loremipsumgen.feat_welcome.presentation
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,17 +14,36 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavHostController
 import com.exfarnanda1945.loremipsumgen.core.navigation.AppRoutes
+import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
 
 @Composable
 fun WelcomeScreen(navHostController: NavHostController) {
+    val vm = hiltViewModel<WelcomeViewModel>()
+    val lifecycle = LocalLifecycleOwner.current
+    LaunchedEffect(lifecycle) {
+        lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            vm.mainChannel.collect { uiEvent ->
+                when (uiEvent) {
+                    is UiEvent.NavigateTo -> navHostController.navigate(AppRoutes.GeneratorScreen.route)
+                    else -> {}
+                }
+            }
+        }
+    }
+
     Scaffold {
         Column(
             modifier = Modifier

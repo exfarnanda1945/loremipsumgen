@@ -1,6 +1,5 @@
 package com.exfarnanda1945.loremipsumgen.feat_welcome.presentation
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,7 +25,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavHostController
-import com.exfarnanda1945.loremipsumgen.core.navigation.AppRoutes
 import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
 
 @Composable
@@ -37,7 +35,7 @@ fun WelcomeScreen(navHostController: NavHostController) {
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             vm.mainChannel.collect { uiEvent ->
                 when (uiEvent) {
-                    is UiEvent.NavigateTo -> navHostController.navigate(AppRoutes.GeneratorScreen.route)
+                    is UiEvent.NavigateTo -> navHostController.navigate(uiEvent.path)
                     else -> {}
                 }
             }
@@ -81,7 +79,7 @@ fun WelcomeScreen(navHostController: NavHostController) {
                 )
                 Spacer(modifier = Modifier.height(30.dp))
                 ElevatedButton(
-                    onClick = { navHostController.navigate(AppRoutes.GeneratorScreen.route) },
+                    onClick = { vm.onEvent(WelcomeEvent.OnNavigateToGen) },
                     shape = RoundedCornerShape(6.dp)
                 ) {
                     Text(
@@ -93,19 +91,3 @@ fun WelcomeScreen(navHostController: NavHostController) {
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun WelcomeScreenPrev() {
-//    LoremipsumgenTheme {
-//        WelcomeScreen()
-//    }
-//}
-//
-//@Preview
-//@Composable
-//fun WelcomeScreenDarkPrev() {
-//    LoremipsumgenTheme(darkTheme = true) {
-//        WelcomeScreen()
-//    }
-//}

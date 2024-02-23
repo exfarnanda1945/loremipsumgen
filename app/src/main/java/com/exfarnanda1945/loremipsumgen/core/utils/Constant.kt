@@ -12,4 +12,7 @@ object Constant {
     const val DATABASE_NAME="generator"
     const val SETTING_TABLE_NAME="generator_setting"
     const val HISTORY_TABLE_NAME="history_generator"
+
+    const val DS_NAME_PREF="gen"
+    const val DS_WELCOME_USER="welcome"
 }

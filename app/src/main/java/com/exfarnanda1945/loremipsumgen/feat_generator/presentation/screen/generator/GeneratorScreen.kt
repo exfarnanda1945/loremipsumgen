@@ -42,7 +42,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavHostController
-import com.exfarnanda1945.loremipsumgen.core.navigation.AppRoutes
 import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
 
 @Composable
@@ -61,6 +60,7 @@ fun GeneratorScreen(navHostController: NavHostController) {
                     is UiEvent.NavigateTo -> navHostController.navigate(uiEvent.path)
                     is UiEvent.ShowToast -> Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT)
                         .show()
+
                     is UiEvent.ShowLoading -> showDialog = uiEvent.isLoading
                     else -> {}
                 }
@@ -68,6 +68,9 @@ fun GeneratorScreen(navHostController: NavHostController) {
         }
     }
 
+    LaunchedEffect(true) {
+        generatorVm.onEvent(GeneratorEvent.OnResetOption)
+    }
 
 
     Scaffold { padding ->

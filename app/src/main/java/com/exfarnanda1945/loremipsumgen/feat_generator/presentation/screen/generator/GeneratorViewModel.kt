@@ -8,7 +8,6 @@ import com.exfarnanda1945.loremipsumgen.core.navigation.AppRoutes
 import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
 import com.exfarnanda1945.loremipsumgen.core.ui.viewmodel.BaseViewModel
 import com.exfarnanda1945.loremipsumgen.core.utils.Resource
-import com.exfarnanda1945.loremipsumgen.feat_generator.domain.repository.IGeneratorRepository
 import com.exfarnanda1945.loremipsumgen.feat_generator.domain.usecase.GeneratorUseCase
 import com.exfarnanda1945.loremipsumgen.feat_generator.utils.UrlParamGenerator
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,12 +16,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GeneratorViewModel @Inject constructor(private val repo: IGeneratorRepository) :
+class GeneratorViewModel @Inject constructor(private val generatorUseCase: GeneratorUseCase) :
     BaseViewModel() {
-
-    private val generatorUseCase by lazy {
-        GeneratorUseCase(repo)
-    }
     var generatorState by mutableStateOf(
         GeneratorState()
     )

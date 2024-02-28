@@ -25,17 +25,19 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavHostController
+import com.exfarnanda1945.loremipsumgen.core.navigation.AppRoutes
 import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
 
 @Composable
 fun WelcomeScreen(navHostController: NavHostController) {
     val vm = hiltViewModel<WelcomeViewModel>()
     val lifecycle = LocalLifecycleOwner.current
+
     LaunchedEffect(lifecycle) {
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             vm.mainChannel.collect { uiEvent ->
                 when (uiEvent) {
-                    is UiEvent.NavigateTo -> navHostController.navigate(uiEvent.path)
+                    is UiEvent.NavigateTo -> navHostController.navigate(AppRoutes.GeneratorScreen.route)
                     else -> {}
                 }
             }

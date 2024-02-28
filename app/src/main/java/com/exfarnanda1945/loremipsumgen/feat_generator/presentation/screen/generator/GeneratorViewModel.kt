@@ -4,7 +4,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import com.exfarnanda1945.loremipsumgen.core.navigation.AppRoutes
 import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
 import com.exfarnanda1945.loremipsumgen.core.ui.viewmodel.BaseViewModel
 import com.exfarnanda1945.loremipsumgen.core.utils.Resource
@@ -54,9 +53,7 @@ class GeneratorViewModel @Inject constructor(private val generatorUseCase: Gener
                 is Resource.Success -> {
                     sendUiEvent(UiEvent.ShowLoading(false))
                     sendUiEvent(
-                        UiEvent.NavigateTo(
-                            AppRoutes.ResultGenScreen.setResult(result = result.data!!)
-                        )
+                        UiEvent.NavigateTo(data = result.data)
                     )
                     generateJob = null
                 }

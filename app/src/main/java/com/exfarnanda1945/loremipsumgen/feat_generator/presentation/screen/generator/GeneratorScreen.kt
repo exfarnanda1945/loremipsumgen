@@ -58,9 +58,13 @@ fun GeneratorScreen(navHostController: NavHostController) {
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             generatorVm.mainChannel.collect { uiEvent ->
                 when (uiEvent) {
-                    is UiEvent.NavigateTo -> navHostController.navigate(uiEvent.path)
+                    is UiEvent.NavigateTo -> uiEvent.data?.let {
+                        navHostController.navigate(AppRoutes.ResultGenScreen.setResult(it))
+                    }
+
                     is UiEvent.ShowToast -> Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT)
                         .show()
+
                     is UiEvent.ShowLoading -> showDialog = uiEvent.isLoading
                     else -> {}
                 }

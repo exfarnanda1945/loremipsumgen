@@ -8,7 +8,6 @@ import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
 import com.exfarnanda1945.loremipsumgen.core.ui.viewmodel.BaseViewModel
 import com.exfarnanda1945.loremipsumgen.core.utils.Resource
 import com.exfarnanda1945.loremipsumgen.feat_generator.domain.usecase.GeneratorUseCase
-import com.exfarnanda1945.loremipsumgen.feat_generator.utils.UrlParamGenerator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -32,17 +31,10 @@ class GeneratorViewModel @Inject constructor(private val generatorUseCase: Gener
 
     private fun generate() {
         if (generateJob != null) return
-
-        if (generatorState.numOfParagraphs.isEmpty() || generatorState.numOfParagraphs == "0") {
-            sendUiEvent(UiEvent.ShowToast("Number of paragraph can't be empty or 0"))
-            return
-        }
-
         sendUiEvent(UiEvent.ShowLoading(true))
 
-        val url = UrlParamGenerator.generate(generatorState)
         generateJob = viewModelScope.launch {
-            when (val result = generatorUseCase(url)) {
+            when (val result = generatorUseCase(generatorState)) {
                 is Resource.Failure -> {
                     sendUiEvent(UiEvent.ShowLoading(false))
                     generateJob = null

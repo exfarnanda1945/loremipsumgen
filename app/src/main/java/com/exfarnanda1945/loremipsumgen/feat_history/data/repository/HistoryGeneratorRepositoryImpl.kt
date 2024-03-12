@@ -2,8 +2,8 @@ package com.exfarnanda1945.loremipsumgen.feat_history.data.repository
 
 import com.exfarnanda1945.loremipsumgen.core.utils.Resource
 import com.exfarnanda1945.loremipsumgen.feat_history.data.dao.IHistoryGeneratorDao
-import com.exfarnanda1945.loremipsumgen.feat_history.data.entities.toEntity
-import com.exfarnanda1945.loremipsumgen.feat_history.data.entities.toModel
+import com.exfarnanda1945.loremipsumgen.core.database.entities.toEntity
+import com.exfarnanda1945.loremipsumgen.core.database.entities.toModel
 import com.exfarnanda1945.loremipsumgen.feat_history.domain.models.HistoryGenerator
 import com.exfarnanda1945.loremipsumgen.feat_history.domain.repository.IHistoryRepository
 import com.exfarnanda1945.loremipsumgen.feat_history.util.SafeCall

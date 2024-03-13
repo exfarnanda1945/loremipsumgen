@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
+object WelcomeRepositoryModule {
     @Provides
     @Singleton
     fun provideWelcomeRepository(ds: DataStore<Preferences>): IWelcomeRepository =

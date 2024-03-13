@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DaoModule {
+object HistoryDaoModule {
     @Singleton
     @Provides
     fun provideHistoryDao(database: GeneratorDatabase): IHistoryGeneratorDao = database.historyDao

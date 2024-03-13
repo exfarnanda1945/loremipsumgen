@@ -11,7 +11,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object UseCaseModule {
+object WelcomeUseCaseModule {
     @Provides
     fun provideReadWelcomeUseCase(repo: IWelcomeRepository): ReadWelcomeUseCase =
         ReadWelcomeUseCase(repo)

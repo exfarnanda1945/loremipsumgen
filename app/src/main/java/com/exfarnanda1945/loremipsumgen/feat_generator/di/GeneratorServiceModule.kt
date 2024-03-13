@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ServiceModule {
+object GeneratorServiceModule {
     @Singleton
     @Provides
      fun provideGeneratorService(retrofit: Retrofit): IGeneratorService =

@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.exfarnanda1945.loremipsumgen.feat_generator.presentation.screen.generator.GeneratorScreen
-import com.exfarnanda1945.loremipsumgen.feat_generator.presentation.screen.result.ResultScreen
+import com.exfarnanda1945.loremipsumgen.feat_result.presentation.result.ResultScreen
 import com.exfarnanda1945.loremipsumgen.feat_welcome.presentation.WelcomeScreen
 
 @Composable

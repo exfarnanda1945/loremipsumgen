@@ -1,4 +1,4 @@
-package com.exfarnanda1945.loremipsumgen.feat_generator.presentation.screen.result
+package com.exfarnanda1945.loremipsumgen.feat_result.presentation.result
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

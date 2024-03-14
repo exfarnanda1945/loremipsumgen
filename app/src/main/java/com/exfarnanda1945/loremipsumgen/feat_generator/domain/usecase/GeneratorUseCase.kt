@@ -10,6 +10,7 @@ import javax.inject.Inject
 @ViewModelScoped
 class GeneratorUseCase @Inject constructor(private val repository: IGeneratorRepository) {
     suspend operator fun invoke(option: GeneratorState): Resource<String> {
+        val numOfParagraph = option.numOfParagraphs.toInt()
 
         if (option.numOfParagraphs.isEmpty() ||
             option.numOfParagraphs.isBlank()
@@ -17,8 +18,12 @@ class GeneratorUseCase @Inject constructor(private val repository: IGeneratorRep
             return Resource.Failure("Number of paragraph not valid")
         }
 
-        if (option.numOfParagraphs == "0") {
+        if (numOfParagraph == 0) {
             return Resource.Failure("Number of paragraph cannot be 0")
+        }
+
+        if (numOfParagraph > 20) {
+            return Resource.Failure("The maximum for number of paragraph is 20")
         }
 
         if (option.numOfParagraphs.startsWith("-") || option.numOfParagraphs.startsWith(" ")) {

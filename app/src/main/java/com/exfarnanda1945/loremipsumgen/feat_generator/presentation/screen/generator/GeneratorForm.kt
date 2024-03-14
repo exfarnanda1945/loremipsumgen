@@ -36,7 +36,7 @@ fun GeneratorForm(
     Column(modifier = modifier) {
         Spacer(modifier = Modifier.height(20.dp))
         OutlinedTextField(
-            title = "Number of Paragraph",
+            title = "Number of Paragraph (Max 20)",
             value = state.numOfParagraphs,
             onValueChange = {
                 generatorVm.onEvent(GeneratorEvent.OnNumOfParagraphChange(it))

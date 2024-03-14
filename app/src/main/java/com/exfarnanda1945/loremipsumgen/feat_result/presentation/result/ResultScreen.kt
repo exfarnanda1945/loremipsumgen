@@ -1,6 +1,6 @@
 package com.exfarnanda1945.loremipsumgen.feat_result.presentation.result
 
-import androidx.compose.foundation.layout.Box
+ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -26,6 +26,7 @@ import com.exfarnanda1945.loremipsumgen.core.presentation.ui.component.HtmlParse
 @Composable
 fun ResultScreen(
     result: String,
+    setting: String,
     navHostController: NavHostController,
     modifier: Modifier = Modifier
 ) {

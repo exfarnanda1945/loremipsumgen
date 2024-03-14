@@ -19,17 +19,23 @@ fun AppNavGraph(navHostController: NavHostController) {
             AppRoutes.ResultGenScreen.route,
             arguments = listOf(
                 navArgument("value") {
-                type = NavType.StringType
-                defaultValue = "" },
-//                navArgument("setting"){
-//                    type =
-//                }
-                ),
+                    type = NavType.StringType
+                    defaultValue = ""
+                },
+                navArgument("setting") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                }
+            ),
         ) { entry ->
             val result = entry.arguments?.getString("value")
-            result?.let {
-                ResultScreen(result = it, navHostController = navHostController)
-            }
+            val settings = entry.arguments?.getString("setting")
+
+            ResultScreen(
+                setting = settings!!,
+                result = result!!,
+                navHostController = navHostController
+            )
         }
     }
 

@@ -35,16 +35,17 @@ class GeneratorViewModel @Inject constructor(private val generatorUseCase: Gener
 
 
     private fun generate() {
-        if (generateJob != null) return
+        if (generateJob != null) {
+            return
+        }
+
         sendUiEvent(UiEvent.ShowLoading(true))
 
         generateJob = viewModelScope.launch {
             when (val result = generatorUseCase(generatorState)) {
                 is Resource.Failure -> {
                     sendUiEvent(UiEvent.ShowLoading(false))
-                    generateJob = null
                     sendUiEvent(UiEvent.ShowToast(result.message))
-
                 }
 
                 is Resource.Success -> {
@@ -58,11 +59,12 @@ class GeneratorViewModel @Inject constructor(private val generatorUseCase: Gener
                             )
                         )
                     )
-                    generateJob = null
                 }
             }
         }
 
+
+        generateJob = null
     }
 
     fun onEvent(event: GeneratorEvent) {

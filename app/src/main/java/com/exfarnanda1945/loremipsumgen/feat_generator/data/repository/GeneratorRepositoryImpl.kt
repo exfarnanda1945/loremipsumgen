@@ -12,8 +12,10 @@ class GeneratorRepositoryImpl @Inject constructor(private val generatorService: 
     override suspend fun generate(url: String): Resource<String> {
         try {
             val response = generatorService.generate(url)
+
             if (response.code() != 200) {
-                return Resource.Failure(response.message())
+                val msg = response.message().ifEmpty { response.body() }
+                return Resource.Failure(message = msg!!)
             }
 
             val result = response.body()!!

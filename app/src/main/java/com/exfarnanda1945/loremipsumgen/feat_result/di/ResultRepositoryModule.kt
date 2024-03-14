@@ -6,14 +6,14 @@ import com.exfarnanda1945.loremipsumgen.feat_result.domain.repository.IResultRep
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 object ResultRepositoryModule {
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideResultRepositoryDao(dao: IResultDao): IResultRepository = ResultRepositoryImpl(dao)
 
 }

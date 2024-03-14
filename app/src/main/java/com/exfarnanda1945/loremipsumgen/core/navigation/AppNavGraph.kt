@@ -8,23 +8,23 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.exfarnanda1945.loremipsumgen.feat_generator.presentation.screen.generator.GeneratorScreen
 import com.exfarnanda1945.loremipsumgen.feat_result.presentation.result.ResultScreen
-import com.exfarnanda1945.loremipsumgen.feat_welcome.presentation.WelcomeScreen
 
 @Composable
 fun AppNavGraph(navHostController: NavHostController) {
-    NavHost(navController = navHostController, startDestination = AppRoutes.WelcomeScreen.route) {
-        composable(AppRoutes.WelcomeScreen.route) {
-            WelcomeScreen(navHostController)
-        }
+    NavHost(navController = navHostController, startDestination = AppRoutes.GeneratorScreen.route) {
         composable(AppRoutes.GeneratorScreen.route) {
             GeneratorScreen(navHostController)
         }
         composable(
             AppRoutes.ResultGenScreen.route,
-            arguments = listOf(navArgument("value") {
+            arguments = listOf(
+                navArgument("value") {
                 type = NavType.StringType
-                defaultValue = ""
-            }),
+                defaultValue = "" },
+//                navArgument("setting"){
+//                    type =
+//                }
+                ),
         ) { entry ->
             val result = entry.arguments?.getString("value")
             result?.let {

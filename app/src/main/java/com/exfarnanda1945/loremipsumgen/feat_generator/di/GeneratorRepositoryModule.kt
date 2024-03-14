@@ -6,15 +6,15 @@ import com.exfarnanda1945.loremipsumgen.feat_generator.domain.repository.IGenera
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 object GeneratorRepositoryModule {
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideGeneratorRepository(service: IGeneratorService): IGeneratorRepository =
         GeneratorRepositoryImpl(service)
 }

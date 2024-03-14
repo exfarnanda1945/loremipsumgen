@@ -5,13 +5,13 @@ import com.exfarnanda1945.loremipsumgen.feat_generator.domain.usecase.GeneratorU
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 object GeneratorUseCaseModule {
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideGenUseCase(repo: IGeneratorRepository): GeneratorUseCase = GeneratorUseCase(repo)
 }

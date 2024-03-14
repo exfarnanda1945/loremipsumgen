@@ -4,15 +4,15 @@ import com.exfarnanda1945.loremipsumgen.feat_generator.data.service.IGeneratorSe
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Retrofit
-import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 object GeneratorServiceModule {
-    @Singleton
     @Provides
-     fun provideGeneratorService(retrofit: Retrofit): IGeneratorService =
+    @ViewModelScoped
+    fun provideGeneratorService(retrofit: Retrofit): IGeneratorService =
         retrofit.create(IGeneratorService::class.java)
 }

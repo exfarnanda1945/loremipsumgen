@@ -1,11 +1,13 @@
 package com.exfarnanda1945.loremipsumgen.feat_generator.domain.usecase
 
-import com.exfarnanda1945.loremipsumgen.feat_generator.domain.repository.IGeneratorRepository
 import com.exfarnanda1945.loremipsumgen.core.utils.Resource
+import com.exfarnanda1945.loremipsumgen.feat_generator.domain.repository.IGeneratorRepository
 import com.exfarnanda1945.loremipsumgen.feat_generator.presentation.screen.generator.GeneratorState
 import com.exfarnanda1945.loremipsumgen.feat_generator.utils.UrlParamGenerator
+import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
+@ViewModelScoped
 class GeneratorUseCase @Inject constructor(private val repository: IGeneratorRepository) {
     suspend operator fun invoke(option: GeneratorState): Resource<String> {
 

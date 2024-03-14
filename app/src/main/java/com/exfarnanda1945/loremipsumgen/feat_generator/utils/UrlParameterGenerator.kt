@@ -21,39 +21,39 @@ object UrlParamGenerator {
             url += "/decorate"
         }
 
-        if (state.addLink) {
+        if (state.isLink) {
             url += "/link"
         }
 
-        if (state.addOl) {
+        if (state.isOl) {
             url += "/ol"
         }
 
-        if (state.addDl) {
+        if (state.isDl) {
             url += "/dl"
         }
 
-        if (state.addBq) {
+        if (state.isBq) {
             url += "/bq"
         }
 
-        if (state.addCode) {
+        if (state.isCode) {
             url += "/code"
         }
 
-        if (state.addHeaders) {
+        if (state.isHeaders) {
             url += "/headers"
         }
 
-        if (state.addAllCaps) {
+        if (state.isAllCaps) {
             url += "/allcaps"
         }
 
-        if (state.prudeVer) {
+        if (state.isPrudeVer) {
             url += "/prude"
         }
 
-        if (state.returnPlainText) {
+        if (state.isReturnPlainText) {
             url += "/plaintext"
         }
 

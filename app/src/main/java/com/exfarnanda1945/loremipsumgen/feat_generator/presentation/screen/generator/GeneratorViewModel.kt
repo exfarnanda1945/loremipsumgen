@@ -4,9 +4,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import com.exfarnanda1945.loremipsumgen.core.navigation.AppRoutes
-import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
-import com.exfarnanda1945.loremipsumgen.core.ui.viewmodel.BaseViewModel
+import com.exfarnanda1945.loremipsumgen.core.presentation.navigation.AppRoutes
+import com.exfarnanda1945.loremipsumgen.core.presentation.ui.event.UiEvent
+import com.exfarnanda1945.loremipsumgen.core.presentation.ui.viewmodel.BaseViewModel
 import com.exfarnanda1945.loremipsumgen.core.utils.JsonUtils
 import com.exfarnanda1945.loremipsumgen.core.utils.Resource
 import com.exfarnanda1945.loremipsumgen.feat_generator.domain.usecase.GeneratorUseCase

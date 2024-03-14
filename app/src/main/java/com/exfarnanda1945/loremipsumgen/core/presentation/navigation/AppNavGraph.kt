@@ -1,4 +1,4 @@
-package com.exfarnanda1945.loremipsumgen.core.navigation
+package com.exfarnanda1945.loremipsumgen.core.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController

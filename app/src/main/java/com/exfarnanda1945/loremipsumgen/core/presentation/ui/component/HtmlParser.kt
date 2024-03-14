@@ -1,4 +1,4 @@
-package com.exfarnanda1945.loremipsumgen.core.ui.component
+package com.exfarnanda1945.loremipsumgen.core.presentation.ui.component
 
 import android.text.util.Linkify
 import android.widget.TextView

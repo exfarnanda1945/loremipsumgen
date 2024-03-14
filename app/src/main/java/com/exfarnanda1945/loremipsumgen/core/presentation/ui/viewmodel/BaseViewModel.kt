@@ -1,8 +1,8 @@
-package com.exfarnanda1945.loremipsumgen.core.ui.viewmodel
+package com.exfarnanda1945.loremipsumgen.core.presentation.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
+import com.exfarnanda1945.loremipsumgen.core.presentation.ui.event.UiEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch

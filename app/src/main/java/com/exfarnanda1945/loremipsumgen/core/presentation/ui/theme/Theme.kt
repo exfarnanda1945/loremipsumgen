@@ -1,4 +1,4 @@
-package com.exfarnanda1945.loremipsumgen.core.ui.theme
+package com.exfarnanda1945.loremipsumgen.core.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,4 +1,4 @@
-package com.exfarnanda1945.loremipsumgen.core.ui.event
+package com.exfarnanda1945.loremipsumgen.core.presentation.ui.event
 
 sealed class UiEvent {
     class ShowSnackBar(val msg: String) : UiEvent()

@@ -20,9 +20,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.exfarnanda1945.loremipsumgen.core.ui.component.CheckBoxLabel
-import com.exfarnanda1945.loremipsumgen.core.ui.component.DropDownField
-import com.exfarnanda1945.loremipsumgen.core.ui.component.OutlinedTextField
+import com.exfarnanda1945.loremipsumgen.core.presentation.ui.component.CheckBoxLabel
+import com.exfarnanda1945.loremipsumgen.core.presentation.ui.component.DropDownField
+import com.exfarnanda1945.loremipsumgen.core.presentation.ui.component.OutlinedTextField
 import com.exfarnanda1945.loremipsumgen.feat_generator.presentation.component.GeneratorOptions
 import com.exfarnanda1945.loremipsumgen.feat_generator.utils.ParagraphLengthEnum
 

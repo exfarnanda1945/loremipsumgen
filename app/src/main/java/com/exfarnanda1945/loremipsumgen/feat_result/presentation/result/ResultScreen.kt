@@ -20,7 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.exfarnanda1945.loremipsumgen.core.ui.component.HtmlParser
+import com.exfarnanda1945.loremipsumgen.core.presentation.ui.component.HtmlParser
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

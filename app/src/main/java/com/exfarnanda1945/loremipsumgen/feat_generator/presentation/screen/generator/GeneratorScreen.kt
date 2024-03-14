@@ -42,7 +42,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavHostController
-import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
+import com.exfarnanda1945.loremipsumgen.core.presentation.ui.event.UiEvent
 
 @Composable
 fun GeneratorScreen(navHostController: NavHostController) {

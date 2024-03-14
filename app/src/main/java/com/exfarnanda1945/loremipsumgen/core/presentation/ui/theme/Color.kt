@@ -1,4 +1,4 @@
-package com.exfarnanda1945.loremipsumgen.core.ui.theme
+package com.exfarnanda1945.loremipsumgen.core.presentation.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val md_theme_light_primary = Color(0xFF6750A4)

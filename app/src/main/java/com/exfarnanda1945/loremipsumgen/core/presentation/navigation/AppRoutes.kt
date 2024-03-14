@@ -1,4 +1,4 @@
-package com.exfarnanda1945.loremipsumgen.core.navigation
+package com.exfarnanda1945.loremipsumgen.core.presentation.navigation
 
 sealed class AppRoutes(val route: String) {
     object GeneratorScreen : AppRoutes("generator")

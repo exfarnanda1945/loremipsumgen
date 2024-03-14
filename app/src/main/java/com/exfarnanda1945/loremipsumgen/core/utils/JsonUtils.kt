@@ -6,7 +6,7 @@ import javax.inject.Singleton
 
 @Singleton
 class JsonUtils @Inject constructor(val gson: Gson) {
-    inline fun <reified T> toJson(data: T): String = gson.toJson(T::class.java)
+    inline fun <reified T> toJson(data: T): String = gson.toJson(data)
 
     inline fun <reified T> fromJson(value: String): T = gson.fromJson(value, T::class.java)
 }

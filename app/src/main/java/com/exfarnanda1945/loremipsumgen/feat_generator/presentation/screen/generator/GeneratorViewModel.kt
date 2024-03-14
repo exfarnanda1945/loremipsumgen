@@ -4,8 +4,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
+import com.exfarnanda1945.loremipsumgen.core.navigation.AppRoutes
 import com.exfarnanda1945.loremipsumgen.core.ui.event.UiEvent
 import com.exfarnanda1945.loremipsumgen.core.ui.viewmodel.BaseViewModel
+import com.exfarnanda1945.loremipsumgen.core.utils.JsonUtils
 import com.exfarnanda1945.loremipsumgen.core.utils.Resource
 import com.exfarnanda1945.loremipsumgen.feat_generator.domain.usecase.GeneratorUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +18,9 @@ import javax.inject.Inject
 @HiltViewModel
 class GeneratorViewModel @Inject constructor(private val generatorUseCase: GeneratorUseCase) :
     BaseViewModel() {
+    @Inject
+    lateinit var jsonUtils: JsonUtils
+
     var generatorState by mutableStateOf(
         GeneratorState()
     )
@@ -44,8 +49,14 @@ class GeneratorViewModel @Inject constructor(private val generatorUseCase: Gener
 
                 is Resource.Success -> {
                     sendUiEvent(UiEvent.ShowLoading(false))
+                    val settings = jsonUtils.toJson(generatorState)
                     sendUiEvent(
-                        UiEvent.NavigateTo(data = result.data)
+                        UiEvent.NavigateTo(
+                            AppRoutes.ResultGenScreen.setParam(
+                                setting = settings,
+                                result.data!!
+                            )
+                        )
                     )
                     generateJob = null
                 }
@@ -57,7 +68,7 @@ class GeneratorViewModel @Inject constructor(private val generatorUseCase: Gener
     fun onEvent(event: GeneratorEvent) {
         when (event) {
             is GeneratorEvent.OnBlockquoteChecked -> generatorState = generatorState.copy(
-                addBq = event.blockquote
+                isBq = event.blockquote
             )
 
             is GeneratorEvent.OnBoldChecked -> generatorState = generatorState.copy(
@@ -65,11 +76,11 @@ class GeneratorViewModel @Inject constructor(private val generatorUseCase: Gener
             )
 
             is GeneratorEvent.OnCodeChecked -> generatorState = generatorState.copy(
-                addCode = event.code
+                isCode = event.code
             )
 
             is GeneratorEvent.OnDescriptionListChecked -> generatorState = generatorState.copy(
-                addDl = event.descriptionList
+                isDl = event.descriptionList
             )
 
             GeneratorEvent.OnGenerateBtnClick -> {
@@ -77,11 +88,11 @@ class GeneratorViewModel @Inject constructor(private val generatorUseCase: Gener
             }
 
             is GeneratorEvent.OnHeadingChecked -> generatorState = generatorState.copy(
-                addHeaders = event.heading
+                isHeaders = event.heading
             )
 
             is GeneratorEvent.OnLinksChecked -> generatorState = generatorState.copy(
-                addLink = event.link
+                isLink = event.link
             )
 
             is GeneratorEvent.OnNumOfParagraphChange -> generatorState = generatorState.copy(
@@ -89,7 +100,7 @@ class GeneratorViewModel @Inject constructor(private val generatorUseCase: Gener
             )
 
             is GeneratorEvent.OnOrderedListChecked -> generatorState = generatorState.copy(
-                addOl = event.orderedList
+                isOl = event.orderedList
             )
 
             is GeneratorEvent.OnParagraphLengthChange -> generatorState = generatorState.copy(
@@ -97,16 +108,16 @@ class GeneratorViewModel @Inject constructor(private val generatorUseCase: Gener
             )
 
             is GeneratorEvent.OnPrudeVerChecked -> generatorState = generatorState.copy(
-                prudeVer = event.prudeVer
+                isPrudeVer = event.prudeVer
             )
 
             is GeneratorEvent.OnUnorderedListChecked -> generatorState = generatorState.copy(
-                addUl = event.unorderedList
+                isUl = event.unorderedList
             )
 
             is GeneratorEvent.OnUseAllCapsChecked -> {
                 generatorState = generatorState.copy(
-                    addAllCaps = event.useAllCaps
+                    isAllCaps = event.useAllCaps
                 )
             }
 
@@ -118,7 +129,7 @@ class GeneratorViewModel @Inject constructor(private val generatorUseCase: Gener
 
             is GeneratorEvent.OnReturnPlainTextChange -> {
                 generatorState = generatorState.copy(
-                    returnPlainText = !generatorState.returnPlainText
+                    isReturnPlainText = !generatorState.isReturnPlainText
                 )
             }
 

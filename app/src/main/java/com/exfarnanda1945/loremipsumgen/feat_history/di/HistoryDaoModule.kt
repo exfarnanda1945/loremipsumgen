@@ -1,6 +1,6 @@
 package com.exfarnanda1945.loremipsumgen.feat_history.di
 
-import com.exfarnanda1945.loremipsumgen.core.database.GeneratorDatabase
+import com.exfarnanda1945.loremipsumgen.core.data.database.GeneratorDatabase
 import com.exfarnanda1945.loremipsumgen.feat_history.data.dao.IHistoryGeneratorDao
 import dagger.Module
 import dagger.Provides

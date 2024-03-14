@@ -1,4 +1,4 @@
-package com.exfarnanda1945.loremipsumgen.core.database.entities
+package com.exfarnanda1945.loremipsumgen.core.data.database.entities
 
 import androidx.room.Embedded
 import androidx.room.Relation

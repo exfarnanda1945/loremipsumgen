@@ -1,6 +1,6 @@
 package com.exfarnanda1945.loremipsumgen.feat_history.data.repository
 
-import com.exfarnanda1945.loremipsumgen.core.database.entities.toModel
+import com.exfarnanda1945.loremipsumgen.core.data.database.entities.toModel
 import com.exfarnanda1945.loremipsumgen.core.utils.Resource
 import com.exfarnanda1945.loremipsumgen.feat_history.data.dao.IHistoryGeneratorDao
 import com.exfarnanda1945.loremipsumgen.feat_history.domain.models.HistoryGenerator

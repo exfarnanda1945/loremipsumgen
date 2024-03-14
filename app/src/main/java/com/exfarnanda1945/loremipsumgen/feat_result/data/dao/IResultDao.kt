@@ -2,7 +2,7 @@ package com.exfarnanda1945.loremipsumgen.feat_result.data.dao
 
 import androidx.room.Insert
 import androidx.room.Transaction
-import com.exfarnanda1945.loremipsumgen.core.database.entities.HistoryAndSetting
+import com.exfarnanda1945.loremipsumgen.core.data.database.entities.HistoryAndSetting
 
 interface IResultDao {
     @Transaction

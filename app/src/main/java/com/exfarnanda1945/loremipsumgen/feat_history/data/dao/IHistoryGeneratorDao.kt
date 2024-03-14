@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
-import com.exfarnanda1945.loremipsumgen.core.database.entities.HistoryAndSetting
+import com.exfarnanda1945.loremipsumgen.core.data.database.entities.HistoryAndSetting
 import com.exfarnanda1945.loremipsumgen.core.utils.Constant.HISTORY_TABLE_NAME
 
 @Dao

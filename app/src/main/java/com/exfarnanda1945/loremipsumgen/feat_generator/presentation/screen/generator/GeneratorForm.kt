@@ -78,14 +78,14 @@ fun GeneratorForm(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 CheckBoxLabel(
-                    checked = state.addAllCaps,
+                    checked = state.isAllCaps,
                     onCheckedChange = {
                         generatorVm.onEvent(GeneratorEvent.OnUseAllCapsChecked(it))
                     },
                     label = "Use All Caps"
                 )
                 CheckBoxLabel(
-                    checked = state.prudeVer,
+                    checked = state.isPrudeVer,
                     onCheckedChange = {
                         generatorVm.onEvent(GeneratorEvent.OnPrudeVerChecked(it))
                     },
@@ -103,28 +103,28 @@ fun GeneratorForm(
             ) {
                 Column {
                     CheckBoxLabel(
-                        checked = state.addLink,
+                        checked = state.isLink,
                         onCheckedChange = {
                             generatorVm.onEvent(GeneratorEvent.OnLinksChecked(it))
                         },
                         label = "Links"
                     )
                     CheckBoxLabel(
-                        checked = state.addUl,
+                        checked = state.isUl,
                         onCheckedChange = {
                             generatorVm.onEvent(GeneratorEvent.OnUnorderedListChecked(it))
                         },
                         label = "Unordered List"
                     )
                     CheckBoxLabel(
-                        checked = state.addOl,
+                        checked = state.isOl,
                         onCheckedChange = {
                             generatorVm.onEvent(GeneratorEvent.OnOrderedListChecked(it))
                         },
                         label = "Ordered List"
                     )
                     CheckBoxLabel(
-                        checked = state.addDl,
+                        checked = state.isDl,
                         onCheckedChange = {
                             generatorVm.onEvent(GeneratorEvent.OnDescriptionListChecked(it))
                         },
@@ -140,7 +140,7 @@ fun GeneratorForm(
                         Row {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 RadioButton(
-                                    selected = !state.returnPlainText,
+                                    selected = !state.isReturnPlainText,
                                     onClick = {
                                         generatorVm.onEvent(
                                             GeneratorEvent.OnReturnPlainTextChange(
@@ -159,7 +159,7 @@ fun GeneratorForm(
                             }
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 RadioButton(
-                                    selected = state.returnPlainText,
+                                    selected = state.isReturnPlainText,
                                     onClick = {
                                         generatorVm.onEvent(
                                             GeneratorEvent.OnReturnPlainTextChange(
@@ -182,21 +182,21 @@ fun GeneratorForm(
                 }
                 Column {
                     CheckBoxLabel(
-                        checked = state.addBq,
+                        checked = state.isBq,
                         onCheckedChange = {
                             generatorVm.onEvent(GeneratorEvent.OnBlockquoteChecked(it))
                         },
                         label = "Blockquote"
                     )
                     CheckBoxLabel(
-                        checked = state.addCode,
+                        checked = state.isCode,
                         onCheckedChange = {
                             generatorVm.onEvent(GeneratorEvent.OnCodeChecked(it))
                         },
                         label = "Code"
                     )
                     CheckBoxLabel(
-                        checked = state.addHeaders,
+                        checked = state.isHeaders,
                         onCheckedChange = {
                             generatorVm.onEvent(GeneratorEvent.OnHeadingChecked(it))
                         },

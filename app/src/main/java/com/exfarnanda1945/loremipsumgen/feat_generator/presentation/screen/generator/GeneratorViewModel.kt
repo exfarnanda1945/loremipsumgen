@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GeneratorViewModel @Inject constructor(private val generatorUseCase: GeneratorUseCase) :
-    BaseViewModel() {
+    BaseViewModel<GeneratorEvent>() {
     @Inject
     lateinit var jsonUtils: JsonUtils
 
@@ -67,7 +67,7 @@ class GeneratorViewModel @Inject constructor(private val generatorUseCase: Gener
         generateJob = null
     }
 
-    fun onEvent(event: GeneratorEvent) {
+    override fun onEvent(event: GeneratorEvent) {
         when (event) {
             is GeneratorEvent.OnBlockquoteChecked -> generatorState = generatorState.copy(
                 isBq = event.blockquote
@@ -152,6 +152,7 @@ class GeneratorViewModel @Inject constructor(private val generatorUseCase: Gener
             }
         }
     }
+
 
     override fun onCleared() {
         super.onCleared()

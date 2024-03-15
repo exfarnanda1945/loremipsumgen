@@ -7,7 +7,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-open class BaseViewModel :ViewModel() {
+abstract class BaseViewModel<T> :ViewModel() {
     private var _mainChannel = Channel<UiEvent>()
     val mainChannel = _mainChannel.receiveAsFlow()
 
@@ -16,4 +16,5 @@ open class BaseViewModel :ViewModel() {
             _mainChannel.send(uiEvent)
         }
     }
+    abstract fun onEvent(event: T)
 }

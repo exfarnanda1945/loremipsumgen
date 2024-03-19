@@ -69,6 +69,7 @@ fun ResultScreen(
                             )
                     }
 
+                    is UiEvent.NavigateBack -> navHostController.popBackStack()
                     else -> {}
                 }
             }
@@ -106,11 +107,15 @@ fun ResultScreen(
                         )
                     }
                     Spacer(modifier = Modifier.width(14.dp))
-                    Icon(
-                        imageVector = Icons.Filled.Save,
-                        contentDescription = "save",
-                        tint = MaterialTheme.colorScheme.onPrimary
-                    )
+                    IconButton(onClick = {
+                        vm.onEvent(ResultEvent.OnSaveResult(result = result, settings = setting))
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Save,
+                            contentDescription = "save",
+                            tint = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
                     Spacer(modifier = Modifier.width(14.dp))
                 }
             )

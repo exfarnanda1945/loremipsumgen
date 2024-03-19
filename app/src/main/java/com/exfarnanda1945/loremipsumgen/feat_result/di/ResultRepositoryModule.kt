@@ -1,5 +1,6 @@
 package com.exfarnanda1945.loremipsumgen.feat_result.di
 
+import com.exfarnanda1945.loremipsumgen.core.utils.JsonUtils
 import com.exfarnanda1945.loremipsumgen.feat_result.data.dao.IResultDao
 import com.exfarnanda1945.loremipsumgen.feat_result.data.repository.ResultRepositoryImpl
 import com.exfarnanda1945.loremipsumgen.feat_result.domain.repository.IResultRepository
@@ -14,6 +15,10 @@ import dagger.hilt.android.scopes.ViewModelScoped
 object ResultRepositoryModule {
     @Provides
     @ViewModelScoped
-    fun provideResultRepositoryDao(dao: IResultDao): IResultRepository = ResultRepositoryImpl(dao)
+    fun provideResultRepositoryDao(
+        dao: IResultDao,
+        jsonUtils: JsonUtils
+    ): IResultRepository =
+        ResultRepositoryImpl(dao, jsonUtils)
 
 }

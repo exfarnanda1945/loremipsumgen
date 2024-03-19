@@ -5,13 +5,13 @@ import com.exfarnanda1945.loremipsumgen.feat_history.data.dao.IHistoryGeneratorD
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 object HistoryDaoModule {
-    @Singleton
+    @ViewModelScoped
     @Provides
     fun provideHistoryDao(database: GeneratorDatabase): IHistoryGeneratorDao = database.historyDao
 }

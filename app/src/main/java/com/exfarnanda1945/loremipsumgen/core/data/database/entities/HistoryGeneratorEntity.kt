@@ -12,4 +12,5 @@ data class HistoryGeneratorEntity(
     val id: Long,
     val createdAt: Long,
     val result: String,
+    val setting: String
 )

@@ -1,9 +1,8 @@
-package com.exfarnanda1945.loremipsumgen.feat_history.domain.models
+package com.exfarnanda1945.loremipsumgen.core.domain.models
 
 import com.exfarnanda1945.loremipsumgen.feat_generator.utils.ParagraphLengthEnum
 
 data class GeneratorSetting(
-    val id:Long,
     val numOfParagraphs: String,
     val paragraphLength: ParagraphLengthEnum,
     val isDecorate:Boolean,

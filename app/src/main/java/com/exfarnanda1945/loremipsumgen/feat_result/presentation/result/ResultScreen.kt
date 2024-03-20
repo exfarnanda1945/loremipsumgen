@@ -58,7 +58,7 @@ fun ResultScreen(
 
     LaunchedEffect(lifecycle) {
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            vm.mainChannel.collect {
+            vm.uiChannel.collect {
                 when (it) {
                     is UiEvent.ShowSnackBar -> scope.launch {
                         snackBarState

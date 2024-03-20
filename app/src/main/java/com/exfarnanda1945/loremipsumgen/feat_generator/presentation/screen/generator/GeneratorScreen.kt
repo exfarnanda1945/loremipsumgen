@@ -55,7 +55,7 @@ fun GeneratorScreen(navHostController: NavHostController) {
 
     LaunchedEffect(lifecycle) {
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            generatorVm.mainChannel.collect { uiEvent ->
+            generatorVm.uiChannel.collect { uiEvent ->
                 when (uiEvent) {
                     is UiEvent.NavigateTo -> navHostController.navigate(uiEvent.path)
 

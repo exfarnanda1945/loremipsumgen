@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
@@ -34,6 +36,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -52,13 +55,13 @@ fun GeneratorScreen(navHostController: NavHostController) {
     val lifecycle = LocalLifecycleOwner.current
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
 
     LaunchedEffect(lifecycle) {
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             generatorVm.uiChannel.collect { uiEvent ->
                 when (uiEvent) {
                     is UiEvent.NavigateTo -> navHostController.navigate(uiEvent.path)
-
                     is UiEvent.ShowToast -> Toast.makeText(context, uiEvent.msg, Toast.LENGTH_SHORT)
                         .show()
 
@@ -73,13 +76,14 @@ fun GeneratorScreen(navHostController: NavHostController) {
         generatorVm.onEvent(GeneratorEvent.OnResetOption)
     }
 
-
     Scaffold { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(vertical = 16.dp, horizontal = 24.dp),
+                .padding(vertical = 16.dp, horizontal = 24.dp)
+//                .verticalScroll(scrollState),
+
         ) {
             Text(
                 text = "loremipsum.gen",
@@ -97,39 +101,55 @@ fun GeneratorScreen(navHostController: NavHostController) {
                 generatorVm = generatorVm,
                 modifier = Modifier.fillMaxWidth()
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Row(
+                verticalAlignment = Alignment.Bottom,
                 modifier = Modifier.fillMaxSize(),
-                horizontalArrangement = Arrangement.spacedBy(14.dp),
-                verticalAlignment = Alignment.Bottom
             ) {
-                ElevatedButton(
-                    onClick = {
-                        generatorVm.onEvent(GeneratorEvent.OnGenerateBtnClick)
-                        Log.d("onClick", "GeneratorScreen: ButtonClicked!")
-                    },
-                    shape = RoundedCornerShape(8.dp),
-                    enabled = generatorVm.enabledGenerateBtn,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary
-                    ),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(text = "Generate")
-                }
-                ElevatedButton(
-                    onClick = { generatorVm.onEvent(GeneratorEvent.OnResetOption) },
-                    shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.onSecondary,
-                        contentColor = MaterialTheme.colorScheme.secondary
-                    ),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(text = "Reset")
+                Column {
+                    Text(
+                        text = "View saved results here",
+                        modifier = Modifier.fillMaxWidth(),
+                        style = TextStyle(
+                            textDecoration = TextDecoration.Underline,
+                            color = MaterialTheme.colorScheme.primary
+                        ),
+                        textAlign = TextAlign.Center
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(14.dp),
+                    ) {
+                        ElevatedButton(
+                            onClick = {
+                                generatorVm.onEvent(GeneratorEvent.OnGenerateBtnClick)
+                            },
+                            shape = RoundedCornerShape(8.dp),
+                            enabled = generatorVm.enabledGenerateBtn,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.onPrimary
+                            ),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(text = "Generate")
+                        }
+                        ElevatedButton(
+                            onClick = { generatorVm.onEvent(GeneratorEvent.OnResetOption) },
+                            shape = RoundedCornerShape(8.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.onSecondary,
+                                contentColor = MaterialTheme.colorScheme.secondary
+                            ),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(text = "Reset")
+                        }
+                    }
                 }
             }
+
         }
     }
 

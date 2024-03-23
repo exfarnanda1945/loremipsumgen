@@ -46,7 +46,7 @@ fun GeneratorForm(
                 imeAction = ImeAction.Done
             )
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         DropDownField(
             title = "Paragraph Length",
             isExpanded = state.isParagraphLengthShow,
@@ -69,13 +69,14 @@ fun GeneratorForm(
                     })
                 }
             })
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         GeneratorOptions(
             title = "Options",
             isExpanded = optionState.isMoreOptionExpand,
             onExpandedClick = { generatorVm.onEvent(GeneratorEvent.OnMoreOptionExpanded) }) {
-            Column(
+            Row(
                 modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 CheckBoxLabel(
                     checked = state.isAllCaps,
@@ -93,7 +94,7 @@ fun GeneratorForm(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         GeneratorOptions(title = "Add Other HTML Elements",
             isExpanded = optionState.isHtmlOptionExpand,
             onExpandedClick = { generatorVm.onEvent(GeneratorEvent.OnHtmlOptionExpanded) }) {
@@ -130,7 +131,7 @@ fun GeneratorForm(
                         },
                         label = "Description List"
                     )
-                    Column(modifier = Modifier.padding(vertical = 12.dp)) {
+                    Column(modifier = Modifier.padding(vertical = 8.dp)) {
                         Text(
                             text = "Return as", style = TextStyle(
                                 fontSize = 14.sp,

@@ -30,7 +30,7 @@ fun GeneratorOptions(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 14.dp)
+            .padding(top = 8.dp)
     ) {
         Row(
             modifier = Modifier

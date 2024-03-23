@@ -30,6 +30,7 @@ class ResultViewModel @Inject constructor(
             is ResultEvent.OnCopyClipboard -> {
                 DeviceUtils.copy(context = appContext, data = event.result)
             }
+
             is ResultEvent.OnSaveResult -> viewModelScope.launch {
                 val setting = jsonUtils.fromJson<GeneratorSetting>(event.settings)
                 val now = LocalDateTime.now()
@@ -46,10 +47,7 @@ class ResultViewModel @Inject constructor(
                     }
                     is Resource.Success -> {
                         sendUiEvent(
-                            listOf(
-                                UiEvent.ShowSnackBar("Result successfully saved"),
-                                UiEvent.NavigateBack
-                            )
+                            UiEvent.ShowSnackBar("Result successfully saved"),
                         )
                     }
                 }

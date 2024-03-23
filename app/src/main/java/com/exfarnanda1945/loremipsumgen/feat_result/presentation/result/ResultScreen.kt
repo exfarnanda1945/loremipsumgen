@@ -20,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
@@ -61,15 +62,16 @@ fun ResultScreen(
             vm.uiChannel.collect {
                 when (it) {
                     is UiEvent.ShowSnackBar -> scope.launch {
-                        snackBarState
+                        val snackBar = snackBarState
                             .showSnackbar(
-                                message = "Snackbar",
-                                actionLabel = "Action",
+                                message = it.msg,
                                 duration = SnackbarDuration.Short
                             )
+                        if (snackBar == SnackbarResult.Dismissed) {
+                            navHostController.popBackStack()
+                        }
                     }
 
-                    is UiEvent.NavigateBack -> navHostController.popBackStack()
                     else -> {}
                 }
             }
@@ -79,6 +81,7 @@ fun ResultScreen(
     Scaffold(
         snackbarHost = {
             SnackbarHost(hostState = snackBarState)
+
         },
         topBar = {
             TopAppBar(
@@ -106,7 +109,6 @@ fun ResultScreen(
                             tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
-                    Spacer(modifier = Modifier.width(14.dp))
                     IconButton(onClick = {
                         vm.onEvent(ResultEvent.OnSaveResult(result = result, settings = setting))
                     }) {

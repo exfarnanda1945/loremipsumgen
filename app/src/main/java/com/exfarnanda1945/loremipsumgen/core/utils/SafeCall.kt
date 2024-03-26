@@ -1,6 +1,4 @@
-package com.exfarnanda1945.loremipsumgen.feat_history.util
-
-import com.exfarnanda1945.loremipsumgen.core.utils.Resource
+package com.exfarnanda1945.loremipsumgen.core.utils
 
 object SafeCall {
     inline operator fun <T> invoke(call: () -> T): Resource<T> {

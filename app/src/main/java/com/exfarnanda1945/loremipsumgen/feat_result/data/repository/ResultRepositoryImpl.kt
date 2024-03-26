@@ -4,7 +4,7 @@ import com.exfarnanda1945.loremipsumgen.core.data.database.entities.HistoryGener
 import com.exfarnanda1945.loremipsumgen.core.domain.models.HistoryGenerator
 import com.exfarnanda1945.loremipsumgen.core.utils.JsonUtils
 import com.exfarnanda1945.loremipsumgen.core.utils.Resource
-import com.exfarnanda1945.loremipsumgen.feat_history.util.SafeCall
+import com.exfarnanda1945.loremipsumgen.core.utils.SafeCall
 import com.exfarnanda1945.loremipsumgen.feat_result.data.dao.IResultDao
 import com.exfarnanda1945.loremipsumgen.feat_result.domain.repository.IResultRepository
 import dagger.hilt.android.scopes.ViewModelScoped

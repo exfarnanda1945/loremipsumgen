@@ -5,14 +5,14 @@ import com.exfarnanda1945.loremipsumgen.core.utils.JsonUtils
 import com.exfarnanda1945.loremipsumgen.core.utils.Resource
 import com.exfarnanda1945.loremipsumgen.feat_history.data.dao.IHistoryGeneratorDao
 import com.exfarnanda1945.loremipsumgen.feat_history.domain.repository.IHistoryRepository
-import com.exfarnanda1945.loremipsumgen.feat_history.util.SafeCall
+import com.exfarnanda1945.loremipsumgen.core.utils.SafeCall
 import javax.inject.Inject
 
 class HistoryGeneratorRepositoryImpl @Inject constructor(
     private val historyDao: IHistoryGeneratorDao,
     private val jsonUtils: JsonUtils
 ) : IHistoryRepository {
-    override suspend fun lists(): Resource<List<HistoryGenerator>> = SafeCall {
+    override fun lists(): Resource<List<HistoryGenerator>> = SafeCall {
         val list = historyDao.list()
         list.map {
             HistoryGenerator(
@@ -24,7 +24,7 @@ class HistoryGeneratorRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun get(id: Int): Resource<HistoryGenerator> = SafeCall {
+    override fun get(id: Int): Resource<HistoryGenerator> = SafeCall {
         val get = historyDao.get(id)
         HistoryGenerator(
             id = get.id,
